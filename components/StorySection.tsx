@@ -3,15 +3,14 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import { bequta } from "@/app/fonts"
-
+import { Cinzel } from "next/font/google";
 import { TornPaperEdge } from './TornPaperEdge';
 
-/*
+
 const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: "400",
+  weight: "700",
 })
-*/
 
 const inter = Inter({
   subsets: ["latin"],
@@ -160,19 +159,27 @@ export const StorySection: React.FC<StorySectionProps> = ({
           {/* Text Column - Approx 55% width on mobile */}
           <div className={`w-[55%] md:w-5/12 ${textColor}`}>
             {title && (
-              <h2 className={`${bequta.className} text-2xl md:text-6xl mb-2 md:mb-6 tracking-wide leading-none
-                transition-all duration-1000 delay-500
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
-                ${isDark ? 'text-[#C44569]' : 'text-[#C44569]'}
-              `}>
-                {title}
-              </h2>
+              <>
+                <h2 className={`${cinzel.className} text-base sm:text-2xl md:text-4xl lg:text-5xl mb-1 md:mb-3 tracking-[0.08em] leading-tight
+                  transition-all duration-1000 delay-500
+                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+                  ${isDark ? 'text-[#C44569]' : 'text-[#C44569]'}
+                `}>
+                  {title}
+                </h2>
+                <div className={`
+                  h-[1.5px] w-8 sm:w-12 md:w-16 bg-[#C44569]/50 mb-2 md:mb-6
+                  transition-all duration-1000 delay-600
+                  ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}
+                  origin-left
+                `} />
+              </>
             )}
             
-            <div className={`${cormorant.className} text-[11px] leading-[1.3] sm:text-sm md:text-2xl md:leading-relaxed space-y-2 md:space-y-6
+            <div className={`${cormorant.className} text-sm sm:text-base md:text-xl lg:text-2xl leading-[1.6] sm:leading-relaxed md:leading-loose space-y-2 md:space-y-4
               transition-all duration-1000 delay-700
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
-              ${theme === 'light' ? 'italic font-normal' : 'font-light'}
+              ${theme === 'light' ? 'italic font-medium' : 'font-normal'}
             `}>
               {text}
             </div>

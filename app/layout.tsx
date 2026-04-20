@@ -68,6 +68,18 @@ const dialtones = localFont({
   variable: "--font-dialtones",
 })
 
+const brittany = localFont({
+  src: "../Font/brittany-signature-script/BrittanySignatureScript.ttf",
+  variable: "--font-brittany",
+  display: "swap",
+})
+
+const playlistScript = localFont({
+  src: "../Font/playlist-script/Playlist Script.otf",
+  variable: "--font-playlist-script",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL(canonicalUrl),
   title: {
@@ -186,7 +198,7 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body
-        className={`${inter.variable} ${greatVibes.variable} ${imperialScript.variable} ${cinzel.variable} ${dialtones.variable} ${bequta.variable} font-inter antialiased text-foreground`}
+        className={`${inter.variable} ${greatVibes.variable} ${imperialScript.variable} ${cinzel.variable} ${dialtones.variable} ${bequta.variable}  ${brittany.variable} ${playlistScript.variable} font-inter antialiased text-foreground`}
       >
         {children}
         <Analytics />

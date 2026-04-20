@@ -3,20 +3,36 @@
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
+import { Cormorant_Garamond, Cinzel } from "next/font/google"
 import { Section } from "@/components/section"
-import { bequta } from "@/app/fonts"
+import Image from "next/image"
+
 // Removed circular gallery in favor of a responsive masonry layout
 
+// Palette lives in globals.css → @theme inline → --color-motif-*
+// Edit there once to update every component.
+
+// CSS filter approximation of --color-motif-deep (sage green). Tune if needed.
+const GALLERY_DECO_FILTER = ""
+  // "brightness(0) saturate(100%) invert(37%) sepia(20%) saturate(500%) hue-rotate(80deg) brightness(88%) contrast(92%)"
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400"],
+})
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+})
+
 const galleryItems = [
-  { image: "/mobile-background/couple (4).jpg", text: " " },   
-  { image: "/mobile-background/couple (1).jpg", text: " " },
-  { image: "/mobile-background/couple (5).jpg", text: " " },
-  { image: "/mobile-background/couple (6).jpg", text: " " },
-  { image: "/mobile-background/couple (7).jpg", text: " " },
-  { image: "/mobile-background/couple (2).jpg", text: " " },
-  { image: "/mobile-background/couple (3).jpg", text: " " },
-  { image: "/mobile-background/couple (8).jpg", text: " " },
-  { image: "/mobile-background/couple (9).jpg", text: " " },
+  { image: "/mobile-backgroundnew/couple (1).webp", text: " " },
+  { image: "/mobile-backgroundnew/couple (2).webp", text: " " },
+  { image: "/mobile-backgroundnew/couple (3).webp", text: " " },
+  { image: "/mobile-backgroundnew/couple (4).webp", text: " " },
+  { image: "/mobile-backgroundnew/couple (6).webp", text: " " },
+
 ]
 
 export function Gallery() {
@@ -79,9 +95,9 @@ export function Gallery() {
   // Preload adjacent images for smoother nav
   useEffect(() => {
     if (selectedImage) {
-      const next = new Image()
+      const next = new window.Image()
       next.src = galleryItems[(currentIndex + 1) % galleryItems.length].image
-      const prev = new Image()
+      const prev = new window.Image()
       prev.src = galleryItems[(currentIndex - 1 + galleryItems.length) % galleryItems.length].image
     }
   }, [selectedImage, currentIndex])
@@ -94,78 +110,99 @@ export function Gallery() {
   }
 
   return (
-    <Section
-      id="gallery"
-      className="relative py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden"
+    <div
+      className="relative w-full"
+      style={{ backgroundColor: 'var(--color-motif-cream)' }}
     >
-      {/* Semi-transparent overlay for better text readability */}
-      <div className="absolute inset-0 bg-[#FFF7F6] pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_#FBCCC9_0%,_transparent_40%)] opacity-70 pointer-events-none" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,_#FBCCC9_0%,_transparent_40%)] opacity-70 pointer-events-none" />
-      <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] pointer-events-none" />
-
-      {/* Flower decoration - top left corner */}
-      <div className="absolute left-0 top-0 z-0 pointer-events-none">
-        <img
-          src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
-          width={300}
-          height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60 scale-y-[-1]"
-          style={{ filter: 'brightness(0) saturate(100%) invert(35%) sepia(34%) saturate(1637%) hue-rotate(309deg) brightness(91%) contrast(92%)' }}
+      {/* Full-bleed layered background — same as hero (inline styles so it always applies) */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden>
+        <div
+          className="absolute inset-0 opacity-[0.25]"
+          style={{
+            background: 'linear-gradient(165deg, var(--color-motif-cream) 0%, color-mix(in srgb, var(--color-motif-soft) 13%, transparent) 35%, color-mix(in srgb, var(--color-motif-medium) 6%, transparent) 70%, color-mix(in srgb, var(--color-motif-deep) 5%, transparent) 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.08]"
+          style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 15%, var(--color-motif-soft) 0%, transparent 55%)' }}
         />
       </div>
 
-      {/* Flower decoration - top right corner */}
-      <div className="absolute right-0 top-0 z-0 pointer-events-none">
-        <img
+      <Section
+        id="gallery"
+        className="relative z-10 py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden"
+      >
+      {/* Corner floral decoration - aligned with Details section */}
+      <div className="absolute inset-0 pointer-events-none z-[1]">
+        <Image
           src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
+          alt=""
           width={300}
           height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60 scale-x-[-1] scale-y-[-1]"
-          style={{ filter: 'brightness(0) saturate(100%) invert(35%) sepia(34%) saturate(1637%) hue-rotate(309deg) brightness(91%) contrast(92%)' }}
+          className="absolute top-0 left-0 w-auto h-auto max-w-[120px] sm:max-w-[160px] md:max-w-[200px]"
+          style={{ transform: "scaleY(-1)", filter: GALLERY_DECO_FILTER }}
+          priority={false}
+        />
+        <Image
+          src="/decoration/flower-decoration-left-bottom-corner2.png"
+          alt=""
+          width={300}
+          height={300}
+          className="absolute top-0 right-0 w-auto h-auto max-w-[120px] sm:max-w-[160px] md:max-w-[200px]"
+          style={{ transform: "scaleX(-1) scaleY(-1)", filter: GALLERY_DECO_FILTER }}
+          priority={false}
+        />
+        <Image
+          src="/decoration/flower-decoration-left-bottom-corner2.png"
+          alt=""
+          width={300}
+          height={300}
+          className="absolute bottom-0 left-0 w-auto h-auto max-w-[120px] sm:max-w-[160px] md:max-w-[200px]"
+          style={{ filter: GALLERY_DECO_FILTER }}
+          priority={false}
+        />
+        <Image
+          src="/decoration/flower-decoration-left-bottom-corner2.png"
+          alt=""
+          width={300}
+          height={300}
+          className="absolute bottom-0 right-0 w-auto h-auto max-w-[120px] sm:max-w-[160px] md:max-w-[200px]"
+          style={{ transform: "scaleX(-1)", filter: GALLERY_DECO_FILTER }}
+          priority={false}
         />
       </div>
 
-      {/* Flower decoration - left bottom corner */}
-      <div className="absolute left-0 bottom-0 z-0 pointer-events-none">
-        <img
-          src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
-          width={300}
-          height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60"
-          style={{ filter: 'brightness(0) saturate(100%) invert(35%) sepia(34%) saturate(1637%) hue-rotate(309deg) brightness(91%) contrast(92%)' }}
-        />
-      </div>
-      
-      {/* Flower decoration - right bottom corner */}
-      <div className="absolute right-0 bottom-0 z-0 pointer-events-none">
-        <img
-          src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
-          width={300}
-          height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60 scale-x-[-1]"
-          style={{ filter: 'brightness(0) saturate(100%) invert(35%) sepia(34%) saturate(1637%) hue-rotate(309deg) brightness(91%) contrast(92%)' }}
-        />
-      </div>
-
-      {/* Header */}
+      {/* Header — wedding palette & copy */}
       <div className="relative z-10 text-center mb-12 sm:mb-16 md:mb-20 px-4 sm:px-6">
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#C44569] to-transparent" />
-        </div>
-        <h2 className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl ${bequta.className} font-normal text-[#C44569] mb-6 sm:mb-8 uppercase tracking-[0.12em] sm:tracking-[0.15em] elegant-text-shadow`}>
-          Our Moments
-        </h2>
-        <div className="flex items-center justify-center gap-3 mb-6">
-          <div className="h-[1px] w-16 sm:w-24 bg-gradient-to-r from-transparent via-[#C44569] to-transparent" />
-        </div>
-        <p className="text-base sm:text-lg md:text-xl font-[family-name:var(--font-crimson)] text-[#C44569] font-light max-w-xl mx-auto leading-relaxed tracking-wide px-4">
-          Every moment, a treasured memory made eternal
+        <p
+          className={`${cormorant.className} text-[0.7rem] sm:text-xs md:text-sm uppercase tracking-[0.28em] mb-2`}
+          style={{ color: 'var(--color-motif-medium)' }}
+        >
+          Our Story in Frames
         </p>
+        <h2
+          className={`${cinzel.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold mb-2 sm:mb-3`}
+          style={{ color: 'var(--color-motif-deep)' }}
+        >
+          Gallery
+        </h2>
+        <p
+          className={`${cormorant.className} text-xs sm:text-sm md:text-base font-light max-w-xl mx-auto leading-relaxed px-2 mb-3 sm:mb-4`}
+          style={{ color: 'var(--color-motif-medium)' }}
+        >
+          From our first chapter to this beautiful season of commitment, every moment has been a testament to love, faith, and grace. We share these memories with heartfelt gratitude as we look forward to the lifetime that awaits us.
+        </p>
+
+        {/* Decorative element — motif accent dividers */}
+        <div className="flex items-center justify-center gap-2 mt-3 sm:mt-4">
+          <span className="h-px w-10 sm:w-14 rounded-full bg-motif-accent/60" />
+          <div className="flex gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full opacity-80 bg-motif-accent" />
+            <span className="w-1.5 h-1.5 rounded-full opacity-50 bg-motif-accent" />
+            <span className="w-1.5 h-1.5 rounded-full opacity-80 bg-motif-accent" />
+          </div>
+          <span className="h-px w-10 sm:w-14 rounded-full bg-motif-accent/60" />
+        </div>
       </div>
 
       {/* Gallery content */}
@@ -174,7 +211,7 @@ export function Gallery() {
           <div className="max-w-6xl w-full">
             {isLoading ? (
               <div className="flex items-center justify-center h-64 sm:h-80 md:h-96">
-                <div className="w-12 h-12 border-[3px] border-[#C44569]/30 border-t-[#C44569] rounded-full animate-spin" />
+                <div className="w-12 h-12 border-[3px] border-motif-accent/30 border-t-motif-accent rounded-full animate-spin" />
               </div>
             ) : (
               <>
@@ -188,7 +225,7 @@ export function Gallery() {
                       <button
                         key={item.image + index}
                         type="button"
-                        className="group relative snap-center shrink-0 w-[82%] overflow-hidden rounded-lg bg-white/80 backdrop-blur-sm border border-[#C44569]/20 shadow-lg active:shadow-xl active:border-[#C44569]/60 transition-all duration-300"
+                        className="group relative snap-center shrink-0 w-[82%] overflow-hidden rounded-lg bg-motif-cream/90 backdrop-blur-sm border border-motif-accent/40 transition-all duration-300 active:border-motif-accent/60"
                         onClick={() => {
                           setSelectedImage(item)
                           setCurrentIndex(index)
@@ -196,7 +233,7 @@ export function Gallery() {
                         aria-label={`Open image ${index + 1}`}
                       >
                         {/* Subtle glow on active (mobile) */}
-                        <div className="absolute -inset-0.5 bg-gradient-to-br from-[#C44569]/15 to-[#C44569]/5 rounded-lg opacity-0 group-active:opacity-100 transition-opacity duration-300 blur-sm" />
+                        <div className="absolute -inset-0.5 rounded-lg opacity-0 group-active:opacity-100 transition-opacity duration-300 blur-sm" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--color-motif-accent) 30%, transparent), color-mix(in srgb, var(--color-motif-deep) 15%, transparent))' }} />
 
                         <div className="relative aspect-[3/4] overflow-hidden">
                           <img
@@ -204,14 +241,13 @@ export function Gallery() {
                             alt={item.text || `Gallery image ${index + 1}`}
                             loading="lazy"
                             decoding="async"
-                            sizes="90vw"
                             className="w-full h-full object-cover transition-transform duration-500 group-active:scale-[1.02]"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-active:opacity-100 transition-opacity duration-300" />
                         </div>
 
-                        <div className="absolute top-2 right-2 bg-[#C44569]/60 backdrop-blur-sm rounded-full px-2 py-1">
-                          <span className="text-xs font-medium text-white">
+                        <div className="absolute top-2 right-2 backdrop-blur-sm rounded-full px-2 py-1" style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-deep) 60%, transparent)' }}>
+                          <span className="text-xs font-medium text-motif-cream">
                             {index + 1}/{galleryItems.length}
                           </span>
                         </div>
@@ -219,8 +255,8 @@ export function Gallery() {
                     ))}
                   </div>
 
-                  <p className="mt-2 text-center text-xs font-[family-name:var(--font-crimson)] text-[#C44569] tracking-wide">
-                    Swipe to slide
+                  <p className="mt-2 text-center text-xs font-[family-name:var(--font-crimson)] tracking-wide" style={{ color: 'var(--color-motif-medium)' }}>
+                    Swipe to explore
                   </p>
                 </div>
 
@@ -230,7 +266,7 @@ export function Gallery() {
                     <button
                       key={item.image + index}
                       type="button"
-                      className="group relative w-full overflow-hidden rounded-xl bg-white/80 backdrop-blur-sm border border-[#C44569]/20 shadow-lg hover:shadow-xl hover:border-[#C44569]/60 transition-all duration-300"
+                      className="group relative w-full overflow-hidden rounded-xl bg-motif-cream/90 backdrop-blur-sm border border-motif-accent/40 transition-all duration-300 hover:border-motif-accent/60"
                       onClick={() => {
                         setSelectedImage(item)
                         setCurrentIndex(index)
@@ -238,7 +274,7 @@ export function Gallery() {
                       aria-label={`Open image ${index + 1}`}
                     >
                       {/* Subtle glow on hover */}
-                      <div className="absolute -inset-0.5 bg-gradient-to-br from-[#C44569]/15 to-[#C44569]/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
+                      <div className="absolute -inset-0.5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" style={{ background: 'linear-gradient(to bottom right, color-mix(in srgb, var(--color-motif-accent) 25%, transparent), color-mix(in srgb, var(--color-motif-deep) 12%, transparent))' }} />
 
                       <div className="relative aspect-[3/4] md:aspect-square overflow-hidden">
                         <img
@@ -246,7 +282,6 @@ export function Gallery() {
                           alt={item.text || `Gallery image ${index + 1}`}
                           loading="lazy"
                           decoding="async"
-                          sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                         {/* Gradient overlay on hover */}
@@ -254,8 +289,8 @@ export function Gallery() {
                       </div>
 
                       {/* Image counter badge */}
-                      <div className="absolute top-2 right-2 bg-[#C44569]/60 backdrop-blur-sm rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-xs font-medium text-white">
+                      <div className="absolute top-2 right-2 backdrop-blur-sm rounded-full px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-deep) 60%, transparent)' }}>
+                        <span className="text-xs font-medium text-motif-cream">
                           {index + 1}/{galleryItems.length}
                         </span>
                       </div>
@@ -270,9 +305,27 @@ export function Gallery() {
               <div className="mt-10 sm:mt-12 flex justify-center">
                 <Link
                   href="/gallery"
-                  className="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-[family-name:var(--font-cinzel)] font-normal tracking-[0.16em] bg-[#C44569] text-white border-2 border-[#C44569] shadow-md hover:shadow-lg hover:bg-[#C44569]/90 hover:border-[#C44569]/90 transition-all duration-200 uppercase"
+                  className={`${cinzel.className} inline-flex items-center justify-center rounded-sm px-8 py-3.5 text-[0.65rem] sm:text-xs uppercase tracking-[0.22em] font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-motif-cream focus-visible:ring-motif-deep`}
+                  style={{
+                    color: 'var(--color-motif-cream)',
+                    backgroundColor: 'var(--color-motif-deep)',
+                    border: '2px solid var(--color-motif-deep)',
+                    boxShadow: '0 4px 14px color-mix(in srgb, var(--color-motif-deep) 13%, transparent)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-motif-accent)'
+                    e.currentTarget.style.borderColor = 'var(--color-motif-deep)'
+                    e.currentTarget.style.color = 'var(--color-motif-cream)'
+                    e.currentTarget.style.boxShadow = '0 6px 20px color-mix(in srgb, var(--color-motif-deep) 19%, transparent)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--color-motif-accent)'
+                    e.currentTarget.style.borderColor = 'var(--color-motif-deep)'
+                    e.currentTarget.style.color = 'var(--color-motif-cream)'
+                    e.currentTarget.style.boxShadow = '0 4px 14px color-mix(in srgb, var(--color-motif-deep) 13%, transparent)'
+                  }}
                 >
-                  View more
+                  View full gallery
                 </Link>
               </div>
             )}
@@ -345,8 +398,8 @@ export function Gallery() {
             {/* Top bar with counter and close */}
             <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-4 sm:p-6">
               {/* Image counter */}
-              <div className="bg-black/40 backdrop-blur-md rounded-full px-4 py-2 border border-[#9F8650]/40">
-                <span className="text-sm sm:text-base font-medium text-[#9F8650]">
+              <div className="backdrop-blur-md rounded-full px-4 py-2 border" style={{ backgroundColor: "rgba(0,0,0,0.4)", borderColor: 'color-mix(in srgb, var(--color-motif-accent) 50%, transparent)' }}>
+                <span className="text-sm sm:text-base font-medium text-motif-cream">
                   {currentIndex + 1} / {galleryItems.length}
                 </span>
               </div>
@@ -436,6 +489,7 @@ export function Gallery() {
           </div>
         </div>
       )}
-    </Section>
+      </Section>
+    </div>
   )
 }

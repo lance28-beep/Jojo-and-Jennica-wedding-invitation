@@ -65,8 +65,9 @@ export default function Home() {
               <MainHero />
               <Welcome />
               {/* <CoupleVideo />  */}
-              <Countdown />
+ 
               <LoveStory />
+              <Countdown />
               <Gallery />
               <Messages />
               <Details />

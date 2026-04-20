@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { siteConfig } from '@/content/site';
 import Image from 'next/image';
 
 interface HeroProps {
@@ -6,20 +7,47 @@ interface HeroProps {
   visible: boolean;
 }
 
+// Palette mapped directly to the motif CSS vars defined in globals.css
+// --color-motif-deep    #A6846A  warm brown — headings / strong accents
+// --color-motif-medium  #C2A489  classic beige — body / mid tones
+// --color-motif-accent  #E5CFA7  champagne gold — buttons / highlights
+// --color-motif-cream   #F7F3EE  soft ivory — background / text on dark
+// --color-motif-soft    #EADBC8  light beige — cards / subtle fills
+// --color-motif-silver  #EDE6DD  neutral divider — borders / ghost tones
+const palette = {
+  deep:    'var(--color-motif-deep)',    // #A6846A
+  medium:  'var(--color-motif-medium)',  // #C2A489
+  accent:  'var(--color-motif-accent)',  // #E5CFA7
+  cream:   'var(--color-motif-cream)',   // #F7F3EE
+  soft:    'var(--color-motif-soft)',    // #EADBC8
+  silver:  'var(--color-motif-silver)',  // #EDE6DD
+};
+
+// Raw hex values for use inside rgba() where CSS vars cannot be used
+const hex = {
+  deep:   '166, 132, 106',  // #A6846A
+  medium: '194, 164, 137',  // #C2A489
+  accent: '229, 207, 167',  // #E5CFA7
+  cream:  '247, 243, 238',  // #F7F3EE
+  soft:   '234, 219, 200',  // #EADBC8
+  silver: '237, 230, 221',  // #EDE6DD
+};
+
+
 const desktopImages: string[] = [
-  '/desktop-background/couple (1).jpg',
-  '/desktop-background/couple (2).jpg',
-  '/desktop-background/couple (3).jpg',
-  '/desktop-background/couple (4).jpg',
-  '/desktop-background/couple (5).jpg',
+  '/desktop-bakgroundnew/couple (1).webp',
+  '/desktop-bakgroundnew/couple (2).webp',
+  '/desktop-bakgroundnew/couple (3).webp',
+  '/desktop-bakgroundnew/couple (4).webp',
+  '/desktop-bakgroundnew/couple (5).webp',
 ];
 
 const mobileImages: string[] = [
-  '/mobile-background/couple (1).jpg',
-  '/mobile-background/couple (2).jpg',
-  '/mobile-background/couple (3).jpg',
-  '/mobile-background/couple (4).jpg',
-  '/mobile-background/couple (5).jpg',
+'/mobile-backgroundnew/couple (1).webp',
+  '/mobile-backgroundnew/couple (2).webp',
+  '/mobile-backgroundnew/couple (3).webp',
+  '/mobile-backgroundnew/couple (4).webp',
+  '/mobile-backgroundnew/couple (6).webp'
 ];
 
 export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
@@ -101,19 +129,43 @@ export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
           </div>
         ))}
         
-        {/* Gradient Overlay */}
-        <div 
+        {/* Top warm veil — deep warm brown fades into champagne gold, then clears */}
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'linear-gradient(to bottom, rgba(239, 210, 170, 0.5), rgba(239, 210, 170, 0.7))'
+            background: `linear-gradient(
+              to bottom,
+              rgba(${hex.deep}, 0.30) 0%,
+              rgba(${hex.accent}, 0.12) 35%,
+              transparent 60%
+            )`
           }}
         />
-        
-        {/* Subtle vignette effect */}
-        <div 
+
+        {/* Bottom ivory lift — cream rises from below to keep text legible */}
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at center, transparent 0%, rgba(239, 210, 170, 0.3) 100%)'
+            background: `linear-gradient(
+              to top,
+              rgba(${hex.cream}, 0.72) 0%,
+              rgba(${hex.soft}, 0.38) 30%,
+              rgba(${hex.accent}, 0.10) 55%,
+              transparent 70%
+            )`
+          }}
+        />
+
+        {/* Vignette — warm-beige edges draw the eye to the centre */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: `radial-gradient(
+              ellipse at center,
+              transparent 30%,
+              rgba(${hex.medium}, 0.18) 65%,
+              rgba(${hex.deep}, 0.32) 100%
+            )`
           }}
         />
       </div>
@@ -127,24 +179,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
             contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
           }`}
         >
-          <div className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 flex items-center justify-center">
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 flex items-center justify-center">
             {/* Monogram Image with subtle animation */}
             <div 
-              className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 lg:w-60 lg:h-60 transition-transform duration-700 ease-out hover:scale-105"
+              className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 transition-transform duration-700 ease-out hover:scale-105"
               style={{
                 animation: contentVisible ? 'gentleFloat 3s ease-in-out infinite' : 'none'
               }}
             >
               <Image
-                src="/monogram/monogram.png"
+                src={'/monogram/monogram.png'}
                 alt="Monogram"
                 fill
-                className="object-contain drop-shadow-lg"
+                className="object-contain"
                 priority
                 style={{
-                  // White with glow #FBCCC9
-                  filter:
-                    'brightness(0) invert(1) drop-shadow(0 0 5px #FBCCC9) drop-shadow(0 0 10px #FBCCC9)',
+                  filter: `brightness(0) saturate(100%) invert(100%) drop-shadow(0 8px 20px rgba(${hex.accent}, 0.70))`,
                 }}
               />
             </div>
@@ -161,8 +211,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
             style={{
               fontFamily: '"Great Vibes", cursive',
               fontWeight: 400,
-              color: '#FFFFFF',
-              textShadow: '0 0 10px #FBCCC9, 0 0 20px #FBCCC9',
+              color: palette.cream,
+              textShadow: `0 0 18px rgba(${hex.cream}, 0.9), 0 2px 8px rgba(${hex.deep}, 0.4)`,
             }}
           >
             You are
@@ -175,8 +225,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
             style={{
               fontFamily: '"Cinzel", serif',
               fontWeight: 700,
-              color: '#FFFFFF',
-              textShadow: '0 0 10px #FBCCC9, 0 0 20px #FBCCC9',
+              color: palette.cream,
+              textShadow: `0 0 22px rgba(${hex.cream}, 0.95), 0 3px 12px rgba(${hex.deep}, 0.45)`,
               letterSpacing: '0.05em',
             }}
           >
@@ -191,23 +241,23 @@ export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
               contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
             style={{
-              backgroundColor: '#C44569',
-              borderColor: '#C44569',
-              color: '#FFFFFF',
+              backgroundColor: '#8C4B63',   // champagne gold
+              borderColor: '#8C4B63',        // classic beige border
+              color: palette.deep,                // warm brown text
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = '#D65D7D';
+              e.currentTarget.style.backgroundColor = palette.soft;
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.borderColor = '#D65D7D';
+              e.currentTarget.style.borderColor = palette.deep;
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#C44569';
+              e.currentTarget.style.backgroundColor = palette.accent;
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.borderColor = '#C44569';
+              e.currentTarget.style.borderColor = palette.medium;
             }}
           >
             <span
-              style={{ fontFamily: '"Cinzel", serif', fontWeight: 600, color: '#FFFFFF' }}
+              style={{ fontFamily: '"Cinzel", serif', fontWeight: 500, color: '#FAD1DA', letterSpacing: '0.18em' }}
             >
               Open Invitation
             </span>

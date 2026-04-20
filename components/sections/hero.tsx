@@ -2,25 +2,19 @@
 
 import { useEffect, useState, useMemo } from "react"
 import { motion } from "motion/react"
-import { Cormorant_Garamond, Cinzel, Inter } from "next/font/google"
-import { bequta } from "@/app/fonts"
+import { Cormorant_Garamond, Cinzel } from "next/font/google"
 import { siteConfig } from "@/content/site"
-
 const desktopImages: string[] = [
-  '/desktop-background/couple (1).jpg',
-  '/desktop-background/couple (2).jpg',
-  '/desktop-background/couple (3).jpg',
-  '/desktop-background/couple (4).jpg',
-  '/desktop-background/couple (5).jpg',
-];
+  '/desktop-bakgroundnew/couple (6).webp',
+  '/desktop-bakgroundnew/couple (7).webp',
+  '/desktop-bakgroundnew/couple (8).webp',
+  '/desktop-bakgroundnew/couple (9).webp',
+  '/desktop-bakgroundnew/couple (10).webp',
+]
 
 const mobileImages: string[] = [
-  '/mobile-background/couple (1).jpg',
-  '/mobile-background/couple (2).jpg',
-  '/mobile-background/couple (3).jpg',
-  '/mobile-background/couple (4).jpg',
-  '/mobile-background/couple (5).jpg',
-];
+  '/mobile-backgroundnew/couple (12).webp',
+]
 
 const SHOW_BUTTERFLIES = false
 
@@ -34,9 +28,9 @@ const cinzel = Cinzel({
   weight: "700",
 })
 
-const inter = Inter({
+const cinzelRegular = Cinzel({
   subsets: ["latin"],
-  weight: "900",
+  weight: "400",
 })
 
 export function Hero() {
@@ -115,7 +109,7 @@ export function Hero() {
     : "THU"
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#51080F]">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-motif-deep">
       <div className="absolute inset-0 w-full h-full">
         {imagesLoaded && backgroundImages.map((image, index) => (
           <div
@@ -132,10 +126,10 @@ export function Hero() {
             }}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#FBCCC9]/90 via-[#FBCCC9]/70 to-transparent z-0" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#FBCCC9]/75 z-0" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,204,201,0.3),transparent_55%)] mix-blend-screen" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(251,204,201,0.28),transparent_35%)] opacity-70 animate-[pulse_9s_ease-in-out_infinite]" />
+        {/* Bottom vignette — lifts text without crushing the photo */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent z-0" />
+        {/* Top vignette — subtle shadow for navbar readability */}
+        <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black/35 to-transparent z-0" />
       </div>
 
       {SHOW_BUTTERFLIES && (
@@ -455,48 +449,52 @@ export function Hero() {
         </>
       )}
 
-      <div className="relative z-10 w-full container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 flex flex-col items-center justify-center min-h-screen pt-20 sm:pt-24 md:pt-28 pb-10 sm:pb-12 md:pb-16">
+      <div className="relative z-10 w-full container mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex flex-col items-center justify-center min-h-screen pt-20 sm:pt-24 pb-12 sm:pb-16">
         <div
-          className={`w-full max-w-3xl text-center space-y-3 sm:space-y-4 md:space-y-5 transition-all duration-1000 ease-out ${
+          className={`w-full max-w-4xl flex flex-col items-center gap-5 sm:gap-7 md:gap-9 transition-all duration-1000 ease-out ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          {/* Main Invitation Text */}
-          <div className="space-y-2 sm:space-y-3 md:space-y-4">
-            {/* Names & Tagline */}
-            <h1
-              className={`${cormorant.className} text-xs sm:text-sm md:text-base lg:text-lg tracking-[0.24em] sm:tracking-[0.28em] uppercase font-medium text-center text-white`}
-              style={{
-                textShadow: "0 2px 10px rgba(251,204,201,0.5)",
-              }}
-            >
-              Together with our families,
-              <br />
-              we joyfully invite you to witness our union.
-            </h1>
-            <h1
-              className={`${bequta.className} text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl drop-shadow-2xl font-bold`}
-              style={{
-                color: '#FFFFFF',
-                textShadow: "0 0 24px rgba(255,255,255,0.8)",
-                fontWeight: 700,
-              }}
-            >
-              <span className="block">{groomName}</span>
-              <span className="block">&</span>
-              <span className="block">{brideName}</span>
-            </h1>
+          {/* Tagline */}
+          <p
+            className={`${cormorant.className} text-[0.7rem] sm:text-xs md:text-sm lg:text-base tracking-[0.28em] sm:tracking-[0.32em] uppercase font-medium text-center text-motif-cream/90`}
+            style={{ textShadow: "0 2px 10px rgba(0,0,0,0.65)" }}
+          >
+            Together with our families,
+            <br />
+            we joyfully invite you to witness our union.
+          </p>
+
+          {/* Couple Names */}
+          <div
+            className="w-full flex flex-col leading-none"
+            style={{
+              fontFamily: 'var(--font-playlist-script)',
+              color: 'var(--color-motif-cream)',
+              textShadow: "0 2px 28px rgba(0,0,0,0.75)",
+              fontWeight: 400,
+            }}
+          >
+            <span className="block text-center text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] drop-shadow-2xl">
+              {siteConfig.couple.groomNickname}
+            </span>
+            <span className="block text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl py-1 sm:py-2 opacity-80">
+              +
+            </span>
+            <span className="block text-center text-7xl sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem] drop-shadow-2xl">
+              {siteConfig.couple.brideNickname}
+            </span>
           </div>
 
           {/* Date & Time block */}
           <div className="w-full max-w-2xl mx-auto">
             <div
-              className={`${cormorant.className} flex flex-col items-center gap-1.5 sm:gap-2.5 md:gap-3 text-white/95`}
-              style={{ textShadow: "0 0 16px rgba(255,255,255,0.6)" }}
+              className={`${cormorant.className} flex flex-col items-center gap-1.5 sm:gap-2.5 md:gap-3 text-motif-cream/95`}
+              style={{ textShadow: "0 4px 16px rgba(0,0,0,0.6)" }}
             >
               <span
-                className={`${cinzel.className} text-[0.65rem] sm:text-xs md:text-sm uppercase tracking-[0.4em] sm:tracking-[0.5em] font-light text-white`}
-                style={{ textShadow: "0 0 14px rgba(255,255,255,0.65)" }}
+                className={`${cinzel.className} text-[0.65rem] sm:text-xs md:text-sm uppercase tracking-[0.4em] sm:tracking-[0.5em] font-light text-motif-cream`}
+                style={{ textShadow: "0 2px 14px color-mix(in srgb, var(--color-motif-deep) 65%, transparent)" }}
               >
                 {weddingMonth}
               </span>
@@ -504,27 +502,27 @@ export function Hero() {
               <div className="flex w-full items-center gap-2 sm:gap-4 md:gap-5">
                 {/* Day of week & divider */}
               <div className="flex flex-1 items-center justify-end gap-1.5 sm:gap-2.5">
-                  <span className="h-[0.5px] flex-1 bg-white/45" />
+                  <span className="h-[0.5px] flex-1 bg-motif-cream/45" />
                   <span
-                    className={`${cinzel.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light text-white`}
-                    style={{ textShadow: "0 0 14px rgba(255,255,255,0.65)" }}
+                    className={`${cinzel.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light text-motif-cream`}
+                    style={{ textShadow: "0 2px 14px color-mix(in srgb, var(--color-motif-deep) 65%, transparent)" }}
                   >
                     {ceremonyDayShort}
                   </span>
-                  <span className="h-[0.5px] w-6 sm:w-8 md:w-10 bg-white/45" />
+                  <span className="h-[0.5px] w-6 sm:w-8 md:w-10 bg-motif-cream/45" />
                 </div>
 
                 {/* Day number */}
                 <div className="relative flex items-center justify-center px-3 sm:px-4 md:px-5">
                   <span
                     aria-hidden="true"
-                    className="absolute inset-0 mx-auto h-[70%] max-h-[180px] w-[100px] sm:w-[140px] md:w-[170px] rounded-full bg-gradient-to-b from-[#FBCCC9]/40 via-[#FBCCC9]/30 to-transparent blur-[28px] opacity-80"
+                    className="absolute inset-0 mx-auto h-[70%] max-h-[180px] w-[100px] sm:w-[140px] md:w-[170px] rounded-full bg-gradient-to-b from-motif-soft/40 via-motif-soft/30 to-transparent blur-[28px] opacity-80"
                   />
                   <span
-                    className={`${inter.className} relative text-[4rem] sm:text-[5.5rem] md:text-[6.5rem] lg:text-[7rem] font-black leading-none tracking-wider text-[#C44569]`}
+                    className={`${cinzel.className} relative text-[4rem] sm:text-[5.5rem] md:text-[6.5rem] lg:text-[7rem] font-light leading-none tracking-wider text-motif-cream`}
                     style={{
-                      textShadow: "0 0 22px rgba(251,204,201,0.9), 0 0 40px rgba(251,204,201,0.7)",
-                      filter: "drop-shadow(0 0 26px rgba(251,204,201,0.65))",
+                      textShadow: "0 0 22px var(--color-motif-cream), 0 0 40px color-mix(in srgb, var(--color-motif-cream) 70%, transparent)",
+                      filter: "drop-shadow(0 0 26px color-mix(in srgb, var(--color-motif-cream) 65%, transparent))",
                     }}
                   >
                     {weddingDayNumber}
@@ -533,20 +531,20 @@ export function Hero() {
 
                 {/* Time */}
                 <div className="flex flex-1 items-center gap-1.5 sm:gap-2.5">
-                  <span className="h-[0.5px] w-6 sm:w-8 md:w-10 bg-white/45" />
+                  <span className="h-[0.5px] w-6 sm:w-8 md:w-10 bg-motif-cream/45" />
                   <span
-                    className={`${cinzel.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light text-white`}
-                    style={{ textShadow: "0 0 14px rgba(255,255,255,0.65)" }}
+                    className={`${cinzel.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light text-motif-cream`}
+                    style={{ textShadow: "0 2px 14px color-mix(in srgb, var(--color-motif-deep) 65%, transparent)" }}
                   >
                     {ceremonyTime.split(",")[0]}
                   </span>
-                  <span className="h-[0.5px] flex-1 bg-white/45" />
+                  <span className="h-[0.5px] flex-1 bg-motif-cream/45" />
                 </div>
               </div>
 
               <span
-                className={`${cinzel.className} text-[0.65rem] sm:text-xs md:text-sm uppercase tracking-[0.4em] sm:tracking-[0.5em] font-light text-white`}
-                style={{ textShadow: "0 0 14px rgba(255,255,255,0.65)" }}
+                className={`${cinzel.className} text-[0.65rem] sm:text-xs md:text-sm uppercase tracking-[0.4em] sm:tracking-[0.5em] font-light text-motif-cream`}
+                style={{ textShadow: "0 2px 14px color-mix(in srgb, var(--color-motif-deep) 65%, transparent)" }}
               >
                 {weddingYear}
               </span>
@@ -554,23 +552,19 @@ export function Hero() {
           </div>
 
           {/* Venue */}
-          <div className="space-y-1 sm:space-y-1.5 pt-1 sm:pt-2">
-            <p
-              className={`${cinzel.className} text-xs sm:text-sm md:text-base lg:text-lg uppercase tracking-[0.22em] sm:tracking-[0.26em] md:tracking-[0.3em] text-[#C44569] font-medium`}
-              style={{
-                textShadow: "0 2px 18px rgba(251,204,201,0.5)",
-              }}
-            >
-              {siteConfig.ceremony.venue}
-            </p>
-          </div>
+          <p
+            className={`${cinzel.className} text-xs sm:text-sm md:text-base lg:text-lg uppercase tracking-[0.22em] sm:tracking-[0.26em] md:tracking-[0.3em] text-motif-cream font-medium text-center`}
+            style={{ textShadow: "0 2px 18px rgba(0,0,0,0.9)" }}
+          >
+            {siteConfig.ceremony.location}
+          </p>
 
           {/* Call-to-action section */}
-          <div className="pt-3 sm:pt-4 md:pt-5 flex flex-col gap-3 sm:gap-4 items-center max-w-2xl mx-auto w-full px-4">
+          <div className="flex flex-col gap-3 sm:gap-4 items-center max-w-2xl mx-auto w-full px-4">
             <p
-              className={`${cinzel.className} text-[0.7rem] sm:text-xs md:text-sm lg:text-base uppercase tracking-[0.24em] sm:tracking-[0.28em] text-white/95 font-normal leading-relaxed text-center px-4`}
+              className={`${cinzel.className} text-[0.7rem] sm:text-xs md:text-sm lg:text-base uppercase tracking-[0.24em] sm:tracking-[0.28em] text-motif-cream/95 font-normal leading-relaxed text-center px-4`}
               style={{
-                textShadow: "0 0 14px rgba(255,255,255,0.7)",
+                textShadow: "0 2px 14px rgba(0,0,0,0.7)",
               }}
             >
               Your presence, prayers, and love will mean the world to us.
@@ -580,21 +574,21 @@ export function Hero() {
             <div className="w-full flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch">
             <a
               href="#guest-list"
-              className={`${cormorant.className} group relative flex-1 sm:min-w-[200px] md:min-w-[220px] rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C44569]/70`}
+              className={`${cormorant.className} group relative flex-1 sm:min-w-[200px] md:min-w-[220px] rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-motif-deep/70`}
               style={{
-                backgroundColor: "#C44569",
-                boxShadow: "0 10px 24px rgba(196,69,105,0.4)",
+                backgroundColor: "var(--color-motif-cream)",
+                boxShadow: "0 10px 24px color-mix(in srgb, var(--color-motif-cream) 40%, transparent)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "#D65D7D";
-                e.currentTarget.style.boxShadow = "0 12px 28px rgba(196,69,105,0.5)";
+                e.currentTarget.style.backgroundColor = "color-mix(in srgb, var(--color-motif-cream) 75%, var(--color-motif-medium))";
+                e.currentTarget.style.boxShadow = "0 12px 28px color-mix(in srgb, var(--color-motif-cream) 50%, transparent)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "#C44569";
-                e.currentTarget.style.boxShadow = "0 10px 24px rgba(196,69,105,0.4)";
+                e.currentTarget.style.backgroundColor = "var(--color-motif-cream)";
+                e.currentTarget.style.boxShadow = "0 10px 24px color-mix(in srgb, var(--color-motif-cream) 40%, transparent)";
               }}
             >
-              <span className="relative z-10 inline-flex h-full min-h-[3rem] sm:min-h-[3.25rem] w-full items-center justify-center px-6 sm:px-8 text-[0.65rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.32em] sm:tracking-[0.36em] text-white font-semibold transition-all duration-300" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.1)" }}>
+              <span className="relative z-10 inline-flex h-full min-h-[3rem] sm:min-h-[3.25rem] w-full items-center justify-center px-6 sm:px-8 text-[0.65rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.32em] sm:tracking-[0.36em] text-motif-deep font-semibold transition-all duration-300" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.1)" }}>
                 Confirm Attendance
               </span>
             </a>
