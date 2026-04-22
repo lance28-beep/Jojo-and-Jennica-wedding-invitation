@@ -24,7 +24,7 @@ const storyEvents = [
     place: "Perennial Fund Services' Office",
     memories: "This was the place where their story first stirred — where ordinary days became extraordinary, and friendship gave way to love. Now, they return not as workmates, but as soulmates, ready to mark a day that will echo through every tomorrow.",
     year: "2017",
-    month: "June",
+    month: "JJuly",
     img: "/loveStory/add/1. Perennial.jpg"
   },
   {
@@ -44,7 +44,7 @@ const storyEvents = [
   {
     place: "Monte Maria",
     memories: "Year after year, he wished to celebrate his birthday in this sacred space, where gratitude met devotion. And afterward, at The Only Place - Restaurant, they’d dine together — a tradition of joy, warmth, and love served with every dish",
-    year: "2018/2019",
+    year: "2018",
     month: "June",
     img: "/loveStory/add/4. Monte Maria.jpg"
   },
@@ -59,28 +59,28 @@ const storyEvents = [
     place: "Cagayan De Oro",
     memories: "They traveled with hearts wide open, making memories that flowed like the river beneath them. Through rushing currents and laughter’s echo, they danced with the water — a celebration of friendship, freedom, and the joy of being together.",
     year: "2019",
-    month: "October",
+    month: "July",
     img: "/loveStory/add/6. CDO.jpg"
   },
   {
     place: "Camuiguin",
     memories: "Like Camiguin — the Island Born of Fire — their love was bold, untamed, and warm to the touch. Each shore they walked, each island they explored, carried the heat of a passion that never cooled. In the glow of volcanic sunsets and the hush of ocean breeze, they felt it: A love that burns gently, deeply, and forever.",
     year: "2019",
-    month: "October",
+    month: "July",
     img: "/loveStory/7. Camuigin.webp"
   },
   {
     place: "Iligan",
     memories: "In Iligan, the City of Majestic Waterfalls, they didn’t just explore nature — they discovered each other. Amid the hush of cascading waters and the cool stillness of mountain streams, their hearts quietly aligned. Here, love flowed as gently and endlessly as the waterfalls themselves.",
     year: "2019",
-    month: "October",
+    month: "July",
     img: "/loveStory/8. Iligan (2).webp"
   },
   {
     place: "Bukidnon",
     memories: "In Bukidnon, where pineapples grow golden and the land invites adventure, their love found its rhythm. Sweet as the fruit they tasted, bold as the ATV trails they conquered — every turn, every laugh, every muddy splash became part of their story.",
     year: "2019",
-    month: "October",
+    month: "July",
     img: "/loveStory/9. Bukidnon.webp"
   },
   {
@@ -90,13 +90,13 @@ const storyEvents = [
     month: "Pandemic",
     img: "/loveStory/10. Virtual Space (2).webp"
   },
-  {
-    place: "Rosario Church",
-    memories: "Here, where hearts once hesitated, they found their way again. A second chance, wrapped in warmth and wonder — proving that love, when reborn, blooms even brighter.",
-    year: "2021",
-    month: "May",
-    img: "/mobile-background/couple (1).webp"
-  },
+  // {
+  //   place: "Rosario Church",
+  //   memories: "Here, where hearts once hesitated, they found their way again. A second chance, wrapped in warmth and wonder — proving that love, when reborn, blooms even brighter.",
+  //   year: "2021",
+  //   month: "May",
+  //   img: "/mobile-background/couple (1).webp"
+  // },
   {
     place: "Boracay",
     memories: "Parasailing — a moment of nerves and wonder, until the view calmed their hearts. High above the world, he asked her to be his girlfriend — and the sky became their witness.",
