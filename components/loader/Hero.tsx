@@ -188,7 +188,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpen, visible }) => {
               }}
             >
               <Image
-                src={'/monogram/monogram.png'}
+                src={'/monogram/newmonogram.png'}
                 alt="Monogram"
                 fill
                 className="object-contain"

@@ -43,7 +43,7 @@ export function Registry() {
           className={`${cormorant.className} text-sm sm:text-base md:text-lg text-white/90 font-light max-w-2xl mx-auto leading-relaxed px-2`}
           style={{ textShadow: "0 2px 12px rgba(0,0,0,0.65)" }}
         >
-          With all that we have we are truly blessed, your presence and prayer are that we request. But if you desire to give nonetheless, monetary gift is the one we suggest.
+          With all that we have we are trully blessed, your presence and prayer are that we request. But if you desire to give nonetheless, monetary gift is the one we suggest. 
         </p>
         
         <div className="flex items-center justify-center gap-2 mt-3 sm:mt-4">

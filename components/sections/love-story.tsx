@@ -25,62 +25,62 @@ const storyEvents = [
     memories: "This was the place where their story first stirred — where ordinary days became extraordinary, and friendship gave way to love. Now, they return not as workmates, but as soulmates, ready to mark a day that will echo through every tomorrow.",
     year: "2017",
     month: "June",
-    img: "/loveStory/1. Perennial (2).webp"
+    img: "/loveStory/add/1. Perennial.jpg"
   },
   {
     place: "Purple Beetle",
     memories: "On the 8th of April 2018, beneath the quiet sky, the groom bared his heart and whispered his love to the bride — a moment that turned time into memory.",
     year: "2018",
-    month: "Apr",
-    img: "/loveStory/1. Perennial.webp"
+    month: "April",
+    img: "/loveStory/add/2. Purple Beetle.jpg"
   },
   {
     place: "Sagada",
     memories: "Couples first adventure together, the chill clung sweetly to their skin as the sun rose in golden hush — a quiet symphony of warmth and wonder, just like them.",
     year: "2018",
-    month: "Oct",
-    img: "/loveStory/3. Sagada.webp"
+    month: "October",
+    img: "/loveStory/add/3. Sagada.jpg"
   },
   {
     place: "Monte Maria",
     memories: "Year after year, he wished to celebrate his birthday in this sacred space, where gratitude met devotion. And afterward, at The Only Place - Restaurant, they’d dine together — a tradition of joy, warmth, and love served with every dish",
     year: "2018/2019",
     month: "June",
-    img: "/mobile-background/couple (4).webp"
+    img: "/loveStory/add/4. Monte Maria.jpg"
   },
   {
     place: "Bohol",
     memories: "Just like the company they belong to — Perennial, a name that speaks of forever — their love is a promise that no matter the season, it will always return, always grow, always stay. And as their teammates watched, they bore witness to something rare: a romance rooted in friendship, nurtured by time, and destined to endure. #BohoLoveGoodbye #And I will take whatever you can give",
     year: "2019",
     month: "June",
-    img: "/loveStory/1. Perennial.webp"
+    img: "/loveStory/add/5. Bohol.jpg"
   },
   {
     place: "Cagayan De Oro",
     memories: "They traveled with hearts wide open, making memories that flowed like the river beneath them. Through rushing currents and laughter’s echo, they danced with the water — a celebration of friendship, freedom, and the joy of being together.",
     year: "2019",
-    month: "Oct",
-    img: "/loveStory/6. CDO.webp"
+    month: "October",
+    img: "/loveStory/add/6. CDO.jpg"
   },
   {
     place: "Camuiguin",
     memories: "Like Camiguin — the Island Born of Fire — their love was bold, untamed, and warm to the touch. Each shore they walked, each island they explored, carried the heat of a passion that never cooled. In the glow of volcanic sunsets and the hush of ocean breeze, they felt it: A love that burns gently, deeply, and forever.",
     year: "2019",
-    month: "Oct",
+    month: "October",
     img: "/loveStory/7. Camuigin.webp"
   },
   {
     place: "Iligan",
     memories: "In Iligan, the City of Majestic Waterfalls, they didn’t just explore nature — they discovered each other. Amid the hush of cascading waters and the cool stillness of mountain streams, their hearts quietly aligned. Here, love flowed as gently and endlessly as the waterfalls themselves.",
     year: "2019",
-    month: "Oct",
+    month: "October",
     img: "/loveStory/8. Iligan (2).webp"
   },
   {
     place: "Bukidnon",
     memories: "In Bukidnon, where pineapples grow golden and the land invites adventure, their love found its rhythm. Sweet as the fruit they tasted, bold as the ATV trails they conquered — every turn, every laugh, every muddy splash became part of their story.",
     year: "2019",
-    month: "Oct",
+    month: "October",
     img: "/loveStory/9. Bukidnon.webp"
   },
   {
@@ -102,14 +102,14 @@ const storyEvents = [
     memories: "Parasailing — a moment of nerves and wonder, until the view calmed their hearts. High above the world, he asked her to be his girlfriend — and the sky became their witness.",
     year: "2022",
     month: "June",
-    img: "/loveStory/12. Boracay.webp"
+    img: "/loveStory/add/12. Boracay.jpg"
   },
   {
     place: "Singapore",
     memories: "One year after love was confessed, she flew to Singapore to celebrate their first anniversary — proving that distance means nothing when hearts are bound.",
     year: "2023",
     month: "July",
-    img: "/mobile-background/couple (7).webp"
+    img: "/loveStory/add/13. Singapore.jpg"
   },
   {
     place: "Puerto Galera",
@@ -122,14 +122,14 @@ const storyEvents = [
     place: "Cebu",
     memories: "They believed love was meant to be shared. With their parents by their side, they explored a new town — tasting its food, embracing its customs, and weaving new memories into the fabric of their story. It was a celebration not just of their love, but of the family that shaped it",
     year: "2024",
-    month: "Oct",
+    month: "October",
     img: "/loveStory/15. Cebu.webp"
   },
   {
     place: "South Korea - Lotte World",
     memories: "In a foreign land where no one knew their names, he knelt — not for tradition, but for love. It was here their journey began, with a question that sealed their hearts and a promise whispered into the wind. A road to forever.",
     year: "2025",
-    month: "Apr",
+    month: "April",
     img: "/loveStory/16 South Korea.webp"
   },
   {
@@ -137,7 +137,7 @@ const storyEvents = [
     memories: "Amidst the rush of work and life’s responsibilities, they chose stillness. For their 3rd Anniversary, they escaped to a haven of warmth — where good food comforted the soul, gentle massages eased the weight of time, and love was celebrated in quiet, tender ways",
     year: "2025",
     month: "June",
-    img: "/mobile-background/couple (9).webp"
+    img: "/loveStory/add/17. Valentino Resort & Spa.jpg"
   }
 ]
 

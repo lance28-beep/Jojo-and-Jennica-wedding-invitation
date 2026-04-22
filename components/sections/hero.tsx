@@ -507,7 +507,7 @@ export function Hero() {
                     className={`${cinzel.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] font-light text-motif-cream`}
                     style={{ textShadow: "0 2px 14px color-mix(in srgb, var(--color-motif-deep) 65%, transparent)" }}
                   >
-                    {ceremonyDayShort}
+                    Saturday
                   </span>
                   <span className="h-[0.5px] w-6 sm:w-8 md:w-10 bg-motif-cream/45" />
                 </div>
@@ -589,7 +589,7 @@ export function Hero() {
               }}
             >
               <span className="relative z-10 inline-flex h-full min-h-[3rem] sm:min-h-[3.25rem] w-full items-center justify-center px-6 sm:px-8 text-[0.65rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.32em] sm:tracking-[0.36em] text-motif-deep font-semibold transition-all duration-300" style={{ textShadow: "0 1px 6px rgba(0,0,0,0.1)" }}>
-                Confirm Attendance
+                RSVP
               </span>
             </a>
             </div>
