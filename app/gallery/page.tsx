@@ -46,8 +46,14 @@ function readLocalImages(
 }
 
 export default async function GalleryPage() {
-  const desktopImages = readLocalImages("desktop-bakgroundnew", "desktop")
-  const mobileImages = readLocalImages("mobile-backgroundnew", "mobile")
+  const desktopImages = [
+    ...readLocalImages("desktop-bakgroundnew", "desktop"),
+    ...readLocalImages("desktop-background", "desktop"),
+  ]
+  const mobileImages = [
+    ...readLocalImages("mobile-backgroundnew", "mobile"),
+    ...readLocalImages("mobile-background", "mobile"),
+  ]
 
   // Desktop images first (landscape), then mobile portrait images
   const images = [...desktopImages, ...mobileImages]
@@ -224,10 +230,10 @@ export default async function GalleryPage() {
             className={`${cormorant.className} text-center py-16`}
             style={{ color: "var(--color-motif-medium)" }}
           >
-            <p className="font-light text-base">
+            <p className="font-light text-base max-w-2xl mx-auto leading-relaxed">
               No images found. Add files to{" "}
               <code
-                className="px-2 py-1 rounded border text-sm"
+                className="px-2 py-1 rounded border text-sm whitespace-nowrap"
                 style={{
                   backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 8%, transparent)",
                   borderColor: "color-mix(in srgb, var(--color-motif-deep) 30%, transparent)",
@@ -235,10 +241,21 @@ export default async function GalleryPage() {
                 }}
               >
                 public/desktop-bakgroundnew
-              </code>{" "}
-              or{" "}
+              </code>
+              ,{" "}
               <code
-                className="px-2 py-1 rounded border text-sm"
+                className="px-2 py-1 rounded border text-sm whitespace-nowrap"
+                style={{
+                  backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 8%, transparent)",
+                  borderColor: "color-mix(in srgb, var(--color-motif-deep) 30%, transparent)",
+                  color: "var(--color-motif-deep)",
+                }}
+              >
+                public/desktop-background
+              </code>
+              ,{" "}
+              <code
+                className="px-2 py-1 rounded border text-sm whitespace-nowrap"
                 style={{
                   backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 8%, transparent)",
                   borderColor: "color-mix(in srgb, var(--color-motif-deep) 30%, transparent)",
@@ -246,6 +263,17 @@ export default async function GalleryPage() {
                 }}
               >
                 public/mobile-backgroundnew
+              </code>
+              , or{" "}
+              <code
+                className="px-2 py-1 rounded border text-sm whitespace-nowrap"
+                style={{
+                  backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 8%, transparent)",
+                  borderColor: "color-mix(in srgb, var(--color-motif-deep) 30%, transparent)",
+                  color: "var(--color-motif-deep)",
+                }}
+              >
+                public/mobile-background
               </code>
               .
             </p>

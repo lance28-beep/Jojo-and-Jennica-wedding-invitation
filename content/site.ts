@@ -5,6 +5,16 @@ export const siteConfig = {
     groom: "Jojo Aguba",
     groomNickname: "Jojo",
   },
+  googleAPI:{
+    messageForm: "https://docs.google.com/forms/d/e/1FAIpQLSfqfIjPgJHiNXd4TrquyCtFtMNG0WrlsyLGQ9EQuJbbxhWV4Q/formResponse", //done
+    message: "https://script.google.com/macros/s/AKfycbwgFZ35gN0uBFzDtTHCjyeLvINzivW4ZHRjluIv9_JE8RdlNT6kWM-NOshkiIvx2m9wkA/exec",   //done
+    guestList: "",  //done
+    guestRequest: "",  //done
+    entourage: "",  //done
+    sponsors: "",  //done
+    weddingDetails: "",  //done
+////google share 
+    googleShare: "",},
   wedding: {
     date: "MAY 23, 2026",
     time: "10:00 AM",
@@ -29,6 +39,7 @@ export const siteConfig = {
     time: "10:00 AM",
     entourageTime: "9:00 AM",
     guestsTime: "9:30 AM",
+    image: "/Details/Mary Mediatrix of All Grace Parish.jpg",
   },
   reception: {
     location: "La Vida Resort and Events Center",
@@ -36,18 +47,32 @@ export const siteConfig = {
     venue: "La Vida Resort and Events Center",
     date: "May 23, 2026",
     time: "12:00 PM",
+    image: ["/Details/La Vida Resort and Events Center 2.png","/Details/La Vida Resort and Events Center.png"],
   },
   dressCode: {
-    theme: "Modern Filipiniana",
-    colors: ["#CBA990", "#EBD3B9", "#F5E1C0"],
-    sponsors: {
-      male: "Barong & Black Pants",
-      female: "Long Gown"
-    },
-    guests: {
-      gents: "Semi-Formal",
-      ladies: "Semi-Formal"
-    },
+    theme: "SEMI-FORMAL",
+  colors: "#BBCED5, #B9C3A8, #F3D8C5, #D1C4D4, #ECD8BA, #F4E8D8, #E1DCCF",
+  sponsors: {
+    male: "Guests are kindly requested to wear attire in any of the shades within our wedding palette.Color pallet and image to be followed. STRICTLY no shorts, maong jeans, t-shirts, or slippers.",
+    female: "Guests are kindly requested to wear attire in any of the shades within our wedding palette.Color pallet and image to be followed. STRICTLY no shorts, maong jeans, t-shirts, or slippers.",
+    notes: "Ninong: Barong and Black Slacks\n Ninang: Pilipiniana Inspired Gown",
+    photo: "/Details/sponsors.png",
+    palette: "#CBA990, #EBD3B9, #F5E1C0",
+  },
+  entourage: {
+    gents: "Guests are kindly requested to wear attire in any of the shades within our wedding palette.Color pallet and image to be followed. STRICTLY no shorts, maong jeans, t-shirts, or slippers.",
+    ladies: "Guests are kindly requested to wear attire in any of the shades within our wedding palette.Color pallet and image to be followed. STRICTLY no shorts, maong jeans, t-shirts, or slippers.",
+    notes: "You may glam up in theses shades.",
+    photo: "/Details/entourage.png",
+    palette: "#CBA990, #EBD3B9, #F5E1C0",
+  },
+  guests: {
+    gents: "Guests are kindly requested to wear attire in any of the shades within our wedding palette.Color pallet and image to be followed. STRICTLY no shorts, maong jeans, t-shirts, or slippers.",
+    ladies: "Guests are kindly requested to wear attire in any of the shades within our wedding palette.Color pallet and image to be followed. STRICTLY no shorts, maong jeans, t-shirts, or slippers.",
+    notes: "You may glam up in theses shades.",
+    photo: "/Details/Guest.png",
+    palette: "#CBA990, #EBD3B9, #F5E1C0",
+  },
     note: "We kindly request our guests to dress in semi-formal attire following our color palette."
   },
   narratives: {

@@ -5,20 +5,17 @@ import Image from "next/image"
 import { motion } from "motion/react"
 import { Instagram, Twitter, Facebook, MapPin, Calendar, Clock, Heart, Music2 } from "lucide-react"
 import { siteConfig } from "@/content/site"
-import { Cormorant_Garamond } from "next/font/google"
-import { bequta } from "@/app/fonts"
+import { Cinzel, Cormorant_Garamond } from "next/font/google"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400"],
 })
 
-/*
 const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "600"],
 })
-*/
 
 // Helper function to convert text to title case (first letter of each word uppercase)
 const toTitleCase = (str: string) => {
@@ -217,7 +214,7 @@ export function Footer() {
                 <div className="w-10 h-10 sm:w-11 sm:h-11 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center border border-[#C44569]/30 flex-shrink-0 shadow-md">
                   <Heart className="w-5 h-5 sm:w-6 sm:h-6 md:w-6 md:h-6 text-[#C44569]" fill="#C44569" />
                 </div>
-                <h3 className={`${bequta.className} text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-[#C44569]`}>{siteConfig.couple.groomNickname} & {siteConfig.couple.brideNickname}</h3>
+                <h3 className={`${cinzel.className} text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal text-[#C44569]`}>{siteConfig.couple.groomNickname} & {siteConfig.couple.brideNickname}</h3>
               </div>
               <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                 <div className={`flex items-center gap-2 sm:gap-2.5 md:gap-3 ${cormorant.className} text-[#C44569]`}>
@@ -251,7 +248,7 @@ export function Footer() {
                 <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center border border-[#C44569]/30 flex-shrink-0">
                   <Clock className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-[#C44569]" />
                 </div>
-                <h4 className={`${bequta.className} font-semibold text-base sm:text-lg md:text-xl text-[#C44569]`}>Ceremony</h4>
+                <h4 className={`${cinzel.className} font-semibold text-base sm:text-lg md:text-xl text-[#C44569]`}>Ceremony</h4>
               </div>
               <div className={`space-y-2 sm:space-y-2.5 md:space-y-3 ${cormorant.className} text-[#C44569] text-xs sm:text-sm leading-relaxed`}>
                 <div className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
@@ -270,7 +267,7 @@ export function Footer() {
                 <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center border border-[#C44569]/30 flex-shrink-0">
                   <Heart className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-[#C44569]" fill="#C44569" />
                 </div>
-                <h4 className={`${bequta.className} font-semibold text-base sm:text-lg md:text-xl text-[#C44569]`}>Reception</h4>
+                <h4 className={`${cinzel.className} font-semibold text-base sm:text-lg md:text-xl text-[#C44569]`}>Reception</h4>
               </div>
               <div className={`space-y-2 sm:space-y-2.5 md:space-y-3 ${cormorant.className} text-[#C44569] text-xs sm:text-sm leading-relaxed`}>
                 <div className="flex items-start gap-2 sm:gap-2.5 md:gap-3">
@@ -288,7 +285,7 @@ export function Footer() {
           {/* Contact + Quick Links */}
           <motion.div className="space-y-5 sm:space-y-6 md:space-y-7" variants={fadeInUp}>
             <div>
-              <h4 className={`${bequta.className} font-semibold text-base sm:text-lg md:text-xl mb-3 sm:mb-4 md:mb-5 flex items-center gap-2 sm:gap-2.5 md:gap-3 text-[#C44569]`}>
+              <h4 className={`${cinzel.className} font-semibold text-base sm:text-lg md:text-xl mb-3 sm:mb-4 md:mb-5 flex items-center gap-2 sm:gap-2.5 md:gap-3 text-[#C44569]`}>
                 <div className="w-1.5 sm:w-2 h-6 sm:h-7 md:h-8 bg-[#C44569] rounded-full" /> Follow Us
               </h4>
               <div className="flex items-center gap-2 sm:gap-2.5 md:gap-3 flex-wrap">
@@ -332,7 +329,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h5 className={`${bequta.className} font-semibold text-sm sm:text-base md:text-lg mb-2.5 sm:mb-3 md:mb-4 text-[#C44569]`}>Quick Links</h5>
+              <h5 className={`${cinzel.className} font-semibold text-sm sm:text-base md:text-lg mb-2.5 sm:mb-3 md:mb-4 text-[#C44569]`}>Quick Links</h5>
               <div className="space-y-1.5 sm:space-y-2">
                 {nav.map((item) => (
                   <a

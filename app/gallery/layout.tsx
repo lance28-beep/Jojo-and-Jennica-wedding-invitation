@@ -14,28 +14,53 @@ export default function GalleryLayout({ children }: { children: React.ReactNode 
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#FFF7F6]">
-      {/* Simple top bar with only Back link */}
-      <div className="sticky top-0 z-50 backdrop-blur-md bg-[#FBCCC9]/95 border-b border-[#C44569]/30 shadow-sm">
+    <div className="min-h-screen" style={{ backgroundColor: "var(--color-motif-cream)" }}>
+      {/* Sticky top bar — motif palette */}
+      <div
+        className="sticky top-0 z-50 backdrop-blur-md border-b shadow-sm"
+        style={{
+          backgroundColor: "color-mix(in srgb, var(--color-motif-cream) 95%, transparent)",
+          borderColor: "color-mix(in srgb, var(--color-motif-deep) 25%, transparent)",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-12 sm:h-14 flex items-center justify-between">
           <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 sm:gap-2 text-white font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 border-[#C44569] bg-[#C44569] hover:bg-[#A63A58] hover:border-[#A63A58] transition-all duration-200 font-sans text-sm sm:text-base"
+            href="/#gallery"
+            className="inline-flex items-center gap-1.5 sm:gap-2 font-semibold px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border-2 transition-all duration-200 font-sans text-sm sm:text-base"
+            style={{
+              backgroundColor: "var(--color-motif-deep)",
+              borderColor: "var(--color-motif-deep)",
+              color: "var(--color-motif-cream)",
+            }}
+            onClick={() => {
+              // Tell the home page to skip loading/landing and jump straight to DETAILS,
+              // then scroll to the #gallery section.
+              sessionStorage.setItem("returnFromGallery", "true")
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--color-motif-accent)"
+              e.currentTarget.style.borderColor = "var(--color-motif-accent)"
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "var(--color-motif-deep)"
+              e.currentTarget.style.borderColor = "var(--color-motif-deep)"
+            }}
           >
-            <span className="text-base sm:text-lg text-white">←</span>
-            <span className="hidden xs:inline text-white">Back to main page</span>
-            <span className="xs:hidden text-white">Back</span>
+            <span className="text-base sm:text-lg">←</span>
+            <span className="hidden xs:inline">Back to main page</span>
+            <span className="xs:hidden">Back</span>
           </Link>
-          <div className="text-xs sm:text-sm text-[#C44569] font-sans font-medium">Gallery</div>
+
+          <div
+            className="text-xs sm:text-sm font-sans font-medium tracking-widest uppercase"
+            style={{ color: "var(--color-motif-deep)" }}
+          >
+            Gallery
+          </div>
         </div>
       </div>
+
       {children}
     </div>
   )
 }
-
-
-
-
-
-

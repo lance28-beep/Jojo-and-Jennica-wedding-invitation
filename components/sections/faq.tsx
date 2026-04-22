@@ -3,26 +3,18 @@
 import { useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { Section } from "@/components/section"
-import { Cormorant_Garamond } from "next/font/google"
-import { bequta } from "@/app/fonts"
+import { Cinzel, Cormorant_Garamond } from "next/font/google"
 import { siteConfig } from "@/content/site"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
-})
-
-const arialFont = {
-  className: "font-sans",
-  style: { fontFamily: "Arial, sans-serif" }
-}
-
-/*
-const cinzel = Cinzel({
-  subsets: ["latin"],
   weight: ["400"],
 })
-*/
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "600"],
+})
 
 interface FAQItem {
   question: string
@@ -109,12 +101,20 @@ export function FAQ() {
         </p>
 
         <h2
-          className={`${bequta.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-1.5 sm:mb-3 md:mb-4`}
+          className={`${cinzel.className} text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-1.5 sm:mb-3 md:mb-4`}
+          style={{
+            letterSpacing: "0.12em",
+            textShadow: "0 4px 18px rgba(0,0,0,0.85)",
+            fontWeight: 600,
+          }}
         >
           Frequently Asked Questions
         </h2>
         
-        <p className={`${cormorant.className} text-xs sm:text-sm md:text-base text-white font-light max-w-xl mx-auto leading-relaxed px-2 mb-2 sm:mb-3`}>
+        <p
+          className={`${cinzel.className} text-xs sm:text-sm md:text-base text-white/95 font-normal max-w-xl mx-auto leading-relaxed tracking-[0.14em] px-2 mb-2 sm:mb-3`}
+          style={{ textShadow: "0 2px 10px rgba(0,0,0,0.75)" }}
+        >
           Common questions answered to help you prepare for our special day
         </p>
 
@@ -150,7 +150,9 @@ export function FAQ() {
                       aria-expanded={isOpen}
                       aria-controls={contentId}
                     >
-                      <span className={`${arialFont.className} font-normal text-[#800A06] pr-2 sm:pr-3 md:pr-4 text-xs sm:text-sm md:text-base lg:text-lg leading-snug sm:leading-relaxed transition-colors duration-200 group-hover:text-[#671107]`} style={arialFont.style}>
+                      <span
+                        className={`${cinzel.className} font-normal text-[#800A06] pr-2 sm:pr-3 md:pr-4 text-xs sm:text-sm md:text-base lg:text-lg leading-snug sm:leading-relaxed transition-colors duration-200 group-hover:text-[#671107]`}
+                      >
                         {item.question}
                       </span>
                       <ChevronDown
@@ -188,7 +190,7 @@ export function FAQ() {
                             <div className="space-y-6 sm:space-y-8 pt-2">
                               {/* Principal Sponsor Attire */}
                               <div className="space-y-2 sm:space-y-3">
-                                <h4 className={`${cormorant.className} text-[#800A06] font-bold text-sm sm:text-base md:text-lg uppercase tracking-widest`}>Principal Sponsor Attire</h4>
+                                <h4 className={`${cinzel.className} text-[#800A06] font-semibold text-sm sm:text-base md:text-lg uppercase tracking-widest`}>Principal Sponsor Attire</h4>
                                 <div className={`${cormorant.className} text-[#800A06] text-xs sm:text-sm md:text-base space-y-1`}>
                                   <p><span className="font-semibold">Ninang:</span> Long Gown</p>
                                   <p><span className="font-semibold">Ninong:</span> Barong & Black Pants</p>
@@ -202,7 +204,7 @@ export function FAQ() {
 
                               {/* Guest Attire */}
                               <div className="space-y-2 sm:space-y-3">
-                                <h4 className={`${cormorant.className} text-[#800A06] font-bold text-sm sm:text-base md:text-lg uppercase tracking-widest`}>Guest Attire</h4>
+                                <h4 className={`${cinzel.className} text-[#800A06] font-semibold text-sm sm:text-base md:text-lg uppercase tracking-widest`}>Guest Attire</h4>
                                 <div className={`${cormorant.className} text-[#800A06] text-xs sm:text-sm md:text-base space-y-1`}>
                                   <p>Semi-Formal</p>
                                 </div>

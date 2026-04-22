@@ -7,20 +7,17 @@ import { Instagram, Facebook, Twitter, Share2, Copy, Download, Check } from "luc
 import { Section } from "@/components/section"
 import { QRCodeCanvas } from "qrcode.react"
 import { siteConfig } from "@/content/site"
-import { Cormorant_Garamond } from "next/font/google"
-import { bequta } from "@/app/fonts"
+import { Cinzel, Cormorant_Garamond } from "next/font/google"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400"],
 })
 
-/*
 const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "600"],
 })
-*/
 
 export function SnapShare() {
   const [copiedHashtagIndex, setCopiedHashtagIndex] = useState<number | null>(null)
@@ -201,11 +198,17 @@ export function SnapShare() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-[#C44569]/30 bg-white px-3 py-1.5 text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#C44569]">
+          <div
+            className={`${cormorant.className} inline-flex items-center gap-1.5 rounded-full border border-[#C44569]/30 bg-white px-3 py-1.5 text-[10px] sm:text-xs tracking-[0.3em] uppercase text-[#C44569]`}
+          >
             Share Your Memories
           </div>
           <h2
-            className={`${bequta.className} text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#C44569] mt-2 sm:mt-4`}
+            className={`${cinzel.className} text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-[#C44569] mt-2 sm:mt-4`}
+            style={{
+              letterSpacing: "0.08em",
+              fontWeight: 600,
+            }}
           >
             Capture & Share the Celebration
           </h2>
@@ -224,7 +227,7 @@ export function SnapShare() {
           >
             <div className="bg-white rounded-xl sm:rounded-[22px] p-3 sm:p-5 md:p-8 shadow-xl h-full flex flex-col justify-start border border-[#C44569]/30">
               <div className="flex flex-col w-full">
-                <h4 className={`${bequta.className} text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-[#C44569] mb-2 sm:mb-4 text-center`}>
+                <h4 className={`${cinzel.className} text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-[#C44569] mb-2 sm:mb-4 text-center`}>
                   Our Favorite Moments
                 </h4>
                 <div className="grid grid-cols-2 gap-1.5 sm:gap-3 md:gap-4">
@@ -260,7 +263,7 @@ export function SnapShare() {
           <motion.div className="space-y-3 sm:space-y-5 lg:space-y-6 h-full flex flex-col lg:order-2" variants={fadeInUp}>
             <div className="flex-1">
               <div className="bg-white rounded-xl sm:rounded-[22px] p-3 sm:p-5 md:p-8 shadow-xl text-center h-full flex flex-col border border-[#C44569]/30">
-                <h4 className={`${bequta.className} text-base sm:text-lg md:text-xl font-semibold text-[#C44569] mb-2 sm:mb-3`}>
+                <h4 className={`${cinzel.className} text-base sm:text-lg md:text-xl font-semibold text-[#C44569] mb-2 sm:mb-3`}>
                   Share Our Wedding Website
                 </h4>
                 <p className={`${cormorant.className} text-[#C44569] text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed px-1`}>
@@ -294,7 +297,7 @@ export function SnapShare() {
             </div>
 
             <div className="bg-white rounded-lg sm:rounded-[20px] p-3 sm:p-5 md:p-7 shadow-xl border border-[#C44569]/30">
-              <h5 className={`${bequta.className} text-base sm:text-lg md:text-xl font-semibold text-[#C44569] mb-2 sm:mb-3 text-center`}>
+              <h5 className={`${cinzel.className} text-base sm:text-lg md:text-xl font-semibold text-[#C44569] mb-2 sm:mb-3 text-center`}>
                 Use Our Hashtags
               </h5>
               <p className={`${cormorant.className} text-[#C44569] text-xs sm:text-sm text-center mb-3 sm:mb-4 leading-relaxed`}>
@@ -359,7 +362,7 @@ export function SnapShare() {
             </div>
 
             <div className="bg-white rounded-lg sm:rounded-[20px] p-3 sm:p-5 md:p-7 shadow-xl border border-[#C44569]/30">
-              <h5 className={`${bequta.className} text-base sm:text-lg md:text-xl font-semibold text-[#C44569] mb-2 sm:mb-3 text-center`}>
+              <h5 className={`${cinzel.className} text-base sm:text-lg md:text-xl font-semibold text-[#C44569] mb-2 sm:mb-3 text-center`}>
                 Share on Social Media
               </h5>
               <p className={`${cormorant.className} text-[#C44569] text-xs sm:text-sm text-center mb-3 sm:mb-4 leading-relaxed`}>
@@ -400,7 +403,9 @@ export function SnapShare() {
             {driveLink && (
               <div>
                 <div className="bg-white rounded-xl sm:rounded-[22px] p-3 sm:p-5 md:p-7 shadow-xl text-center border border-[#C44569]/30">
-                  <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-[#C44569]/40 bg-white px-2.5 py-1 text-[10px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.32em] text-[#C44569] mb-2 sm:mb-3">
+                  <div
+                    className={`${cormorant.className} inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-[#C44569]/40 bg-white px-2.5 py-1 text-[10px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.32em] text-[#C44569] mb-2 sm:mb-3`}
+                  >
                     Upload Your Photos & Videos
                   </div>
                   <p className={`${cormorant.className} text-[#C44569] text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 px-1`}>

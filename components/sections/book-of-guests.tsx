@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Heart, RefreshCw, TrendingUp, Mail, Users, MapPin, Calendar, Crown } from "lucide-react"
-import { Cormorant_Garamond, Inter } from "next/font/google"
-import { bequta } from "@/app/fonts"
+import { Cormorant_Garamond, Cinzel } from "next/font/google"
 import Image from "next/image"
 
 const cormorant = Cormorant_Garamond({
@@ -11,17 +10,10 @@ const cormorant = Cormorant_Garamond({
   weight: ["400"],
 })
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400"],
-})
-
-/*
 const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400"],
 })
-*/
 
 interface Guest {
   id: string | number
@@ -40,6 +32,16 @@ interface Guest {
   updatedAt?: string
 }
 
+const CARDS_PER_VIEW = 4
+
+// Colors sourced from globals.css @theme inline — edit there to update everywhere
+const BOOK_ACCENT = "var(--color-motif-deep)"    // sage green — primary
+const BOOK_DARK = "var(--color-motif-deep)"      // headings / names
+const BOOK_DARKER = "var(--color-motif-deep)"  // body text (steel blue depth)
+const BOOK_CREAM = "var(--color-motif-cream)"    // card surfaces
+const DECO_FILTER_BOOK =
+  "brightness(0) saturate(100%) invert(39%) sepia(18%) saturate(486%) hue-rotate(62deg) brightness(94%) contrast(88%)"
+
 export function BookOfGuests() {
   const [totalGuests, setTotalGuests] = useState(0)
   const [rsvpCount, setRsvpCount] = useState(0)
@@ -48,7 +50,9 @@ export function BookOfGuests() {
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date())
   const [previousTotal, setPreviousTotal] = useState(0)
   const [showIncrease, setShowIncrease] = useState(false)
-  const [showAllGuests, setShowAllGuests] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [justEntered, setJustEntered] = useState(false)
 
   // Helper function to get initials from name
   const getInitials = (name: string): string => {
@@ -121,6 +125,17 @@ export function BookOfGuests() {
     }
   }
 
+  // Get visible guests (max 4 cards) for carousel
+  const getVisibleGuests = () => {
+    if (confirmedGuests.length <= CARDS_PER_VIEW) return confirmedGuests
+    const visible: Guest[] = []
+    for (let i = 0; i < CARDS_PER_VIEW; i++) {
+      const index = (currentIndex + i) % confirmedGuests.length
+      visible.push(confirmedGuests[index])
+    }
+    return visible
+  }
+
   useEffect(() => {
     // Initial fetch
     fetchGuests()
@@ -146,268 +161,293 @@ export function BookOfGuests() {
     }
   }, [totalGuests])
 
+  // Auto-rotate carousel every 5 seconds when more than 4 guests
+  useEffect(() => {
+    if (confirmedGuests.length <= CARDS_PER_VIEW) return
+    const interval = setInterval(() => {
+      setIsTransitioning(true)
+      setTimeout(() => {
+        setCurrentIndex((prev) => {
+          const next = prev + CARDS_PER_VIEW
+          return next >= confirmedGuests.length ? 0 : next
+        })
+        setIsTransitioning(false)
+        setJustEntered(true)
+        setTimeout(() => setJustEntered(false), 1100)
+      }, 600)
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [confirmedGuests.length])
+
   return (
     <div
       id="guests"
       className="relative z-10 py-4 sm:py-8 md:py-12 lg:py-16 overflow-hidden isolate"
     >
-      {/* Background */}
-      <div 
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-[#FBCCC9]/90 to-[#FFF7F6]/90"
+      {/* Background — warm brown */}
+      <div
+        className="absolute inset-0 -z-10"
+        style={{ backgroundColor: 'var(--color-motif-cream)' }}
       />
-      
-      {/* Flower decoration - top left corner */}
+
+      {/* Flower decoration — warm brown tint */}
       <div className="absolute left-0 top-0 z-0 pointer-events-none">
         <Image
           src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
+          alt=""
           width={300}
           height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60 scale-y-[-1]"
+          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-70 scale-y-[-1]"
           priority={false}
-          style={{ filter: 'brightness(0) saturate(100%) invert(43%) sepia(35%) saturate(1210%) hue-rotate(303deg) brightness(85%) contrast(93%)' }}
+          // style={{ filter: DECO_FILTER_BOOK }}
         />
       </div>
-      
-      {/* Flower decoration - top right corner */}
       <div className="absolute right-0 top-0 z-0 pointer-events-none">
         <Image
           src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
+          alt=""
           width={300}
           height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60 scale-x-[-1] scale-y-[-1]"
+          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-70 scale-x-[-1] scale-y-[-1]"
           priority={false}
-          style={{ filter: 'brightness(0) saturate(100%) invert(43%) sepia(35%) saturate(1210%) hue-rotate(303deg) brightness(85%) contrast(93%)' }}
+          // style={{ filter: DECO_FILTER_BOOK }}
         />
       </div>
-      
-      {/* Flower decoration - left bottom corner */}
       <div className="absolute left-0 bottom-0 z-0 pointer-events-none">
         <Image
           src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
+          alt=""
           width={300}
           height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60"
+          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-70"
           priority={false}
-          style={{ filter: 'brightness(0) saturate(100%) invert(43%) sepia(35%) saturate(1210%) hue-rotate(303deg) brightness(85%) contrast(93%)' }}
+          // style={{ filter: DECO_FILTER_BOOK }}
         />
       </div>
-      
-      {/* Flower decoration - right bottom corner */}
       <div className="absolute right-0 bottom-0 z-0 pointer-events-none">
         <Image
           src="/decoration/flower-decoration-left-bottom-corner2.png"
-          alt="Flower decoration"
+          alt=""
           width={300}
           height={300}
-          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-60 scale-x-[-1]"
+          className="w-auto h-auto max-w-[160px] sm:max-w-[200px] md:max-w-[240px] lg:max-w-[280px] opacity-70 scale-x-[-1]"
           priority={false}
-          style={{ filter: 'brightness(0) saturate(100%) invert(43%) sepia(35%) saturate(1210%) hue-rotate(303deg) brightness(85%) contrast(93%)' }}
+          // style={{ filter: DECO_FILTER_BOOK }}
         />
       </div>
 
-      {/* Section Header - More Compact */}
+      {/* Section Header */}
       <div className="relative z-10 text-center mb-3 sm:mb-4 md:mb-6 px-2 sm:px-3 md:px-4">
-        {/* Small label */}
         <p
-          className={`${cormorant.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.25em] text-[#C44569] mb-1 sm:mb-1.5`}
+          className={`${cormorant.className} text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.25em] mb-1 sm:mb-1.5 mt-4 sm:mt-6 md:mt-8`}
+          style={{ color: BOOK_DARK }}
         >
           Our Cherished Guests
         </p>
-
         <h2
-          className={`${bequta.className} text-xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#C44569] mb-1 sm:mb-2 md:mb-3`}
+          className={`${cinzel.className} text-xl sm:text-3xl md:text-4xl lg:text-5xl mb-1 sm:mb-2 md:mb-3`}
+          style={{ color: BOOK_DARK }}
         >
           Book of Guests
         </h2>
-
-        <p className={`${cormorant.className} text-[10px] sm:text-xs md:text-sm text-[#C44569] font-light max-w-lg mx-auto leading-relaxed px-2`}>
+        <p
+          className={`${cormorant.className} text-[10px] sm:text-xs md:text-sm font-light max-w-lg mx-auto leading-relaxed px-2`}
+          style={{ color: BOOK_DARKER }}
+        >
           Meet the cherished souls joining us in celebration — your presence makes our day truly special
         </p>
-
-        {/* Decorative element */}
         <div className="flex items-center justify-center gap-1 sm:gap-1.5 mt-1.5 sm:mt-2.5 md:mt-3">
-          <div className="w-6 sm:w-10 md:w-12 h-px bg-gradient-to-r from-transparent via-[#C44569]/80 to-transparent" />
-          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-[#C44569]/80 rounded-full" />
-          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-[#C44569]/60 rounded-full" />
-          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 bg-[#C44569]/80 rounded-full" />
-          <div className="w-6 sm:w-10 md:w-12 h-px bg-gradient-to-l from-transparent via-[#C44569]/80 to-transparent" />
+          <div className="w-6 sm:w-10 md:w-12 h-px opacity-50" style={{ backgroundColor: BOOK_ACCENT }} />
+          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full opacity-70" style={{ backgroundColor: BOOK_ACCENT }} />
+          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full opacity-50" style={{ backgroundColor: BOOK_ACCENT }} />
+          <div className="w-0.5 h-0.5 sm:w-1 sm:h-1 rounded-full opacity-70" style={{ backgroundColor: BOOK_ACCENT }} />
+          <div className="w-6 sm:w-10 md:w-12 h-px opacity-50" style={{ backgroundColor: BOOK_ACCENT }} />
         </div>
       </div>
 
       {/* Guests content */}
       <div className="relative">
-        {/* Stats card - Simplified */}
+        {/* Stats card — cream card with warm brown accents */}
         <div className="text-center mb-2.5 sm:mb-4 md:mb-6 px-2 sm:px-4 md:px-6">
           <div className="relative max-w-3xl mx-auto">
-            <div className="relative bg-white backdrop-blur-md border border-[#C44569]/30 rounded-lg sm:rounded-xl p-3 sm:p-5 md:p-6 shadow-md">
-              
-              {/* Refresh button */}
+            <div
+              className="relative backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-5 md:p-6 shadow-lg border transition-all duration-300"
+              style={{
+                backgroundColor: 'color-mix(in srgb, var(--color-motif-cream) 93%, transparent)',
+                borderColor: 'color-mix(in srgb, var(--color-motif-deep) 25%, transparent)',
+                boxShadow: `0 4px 24px rgba(91,102,85,0.12), 0 0 0 1px color-mix(in srgb, var(--color-motif-deep) 13%, transparent)`,
+              }}
+            >
               <button
                 onClick={() => fetchGuests(true)}
                 disabled={isRefreshing}
-                className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1 sm:p-1.5 rounded-full bg-[#C44569]/10 hover:bg-[#C44569]/20 transition-all duration-300 disabled:opacity-50 group z-10"
+                className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 p-1.5 sm:p-2 rounded-full transition-all duration-300 disabled:opacity-50 group z-10 hover:scale-110"
+                style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-deep) 8%, transparent)' }}
                 title="Refresh counts"
               >
-                <RefreshCw className={`h-3 w-3 sm:h-3.5 sm:w-3.5 text-[#C44569] transition-transform ${isRefreshing ? 'animate-spin' : 'group-hover:rotate-180'} duration-500`} />
+                <RefreshCw className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-500 ${isRefreshing ? "animate-spin" : "group-hover:rotate-180"}`} style={{ color: BOOK_ACCENT }} />
               </button>
 
-              {/* Main Count with inline text */}
               <div className="mb-1.5 sm:mb-2.5">
                 <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
-                  <h3 className={`${inter.className} text-xl sm:text-3xl md:text-4xl font-bold text-[#C44569] transition-all duration-500 ${showIncrease ? 'scale-110 text-[#C44569]' : ''}`}>
+                  <h3 className={`${cinzel.className} text-xl sm:text-3xl md:text-4xl font-bold transition-all duration-500 ${showIncrease ? "scale-110" : ""}`} style={{ color: BOOK_DARK }}>
                     {totalGuests}
                   </h3>
                   {showIncrease && (
-                    <TrendingUp className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-[#C44569] animate-bounce" />
+                    <TrendingUp className="h-3.5 w-3.5 sm:h-5 sm:w-5 animate-bounce" style={{ color: BOOK_ACCENT }} />
                   )}
-                  <p className={`${inter.className} text-sm sm:text-lg md:text-xl text-[#C44569] font-medium leading-tight`}>
+                  <p className={`${cormorant.className} text-sm sm:text-lg md:text-xl font-medium leading-tight`} style={{ color: BOOK_DARK }}>
                     {totalGuests === 1 ? "Guest" : "Guests"} Celebrating With Us
                   </p>
                 </div>
               </div>
 
-              {/* RSVP Count */}
-              <p className={`${inter.className} text-xs sm:text-base text-[#C44569]/90 mb-2 sm:mb-3`}>
+              <p className={`${cormorant.className} text-xs sm:text-base mb-2 sm:mb-3`} style={{ color: BOOK_DARKER, opacity: 0.9 }}>
                 {rsvpCount} {rsvpCount === 1 ? "RSVP entry" : "RSVP entries"}
               </p>
-              
-              {/* Message */}
-              <p className={`${inter.className} text-[10px] sm:text-xs md:text-sm text-[#C44569]/90 leading-tight`}>
+              <p className={`${cormorant.className} text-[10px] sm:text-xs md:text-sm leading-tight`} style={{ color: BOOK_DARKER, opacity: 0.85 }}>
                 Thank you for confirming your RSVP! Your presence means the world to us.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Guest List Display */}
+        {/* Guest List Display - 4 cards with carousel */}
         {confirmedGuests.length > 0 && (
           <div className="max-w-5xl mx-auto px-2 sm:px-4 md:px-6">
-            <div className="space-y-2 sm:space-y-3 md:space-y-4">
-              {(showAllGuests ? confirmedGuests : confirmedGuests.slice(0, 5)).map((guest) => (
-                <div
-                  key={guest.id}
-                  className="relative group bg-white rounded-lg sm:rounded-xl md:rounded-2xl p-2.5 sm:p-4 md:p-6 shadow-sm hover:shadow-lg transition-all duration-300 border border-[#C44569]/30 hover:border-[#C44569]/60"
-                >
-                  {/* Guest Header */}
+            <div
+              className="relative overflow-hidden"
+              style={{
+                perspective: "1200px",
+                perspectiveOrigin: "center 85%",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div
+                className={`space-y-2 sm:space-y-3 md:space-y-4 ${isTransitioning ? "animate-guest-roll-out" : ""}`}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {getVisibleGuests().map((guest, index) => (
+                  <div
+                    key={`${guest.id}-${currentIndex}-${index}`}
+                    className={`relative group rounded-xl sm:rounded-2xl p-2.5 sm:p-4 md:p-6 transition-all duration-300 border hover:shadow-xl ${justEntered ? "animate-guest-roll-in" : ""}`}
+                    style={{
+                      backgroundColor: BOOK_CREAM,
+                      borderColor: 'color-mix(in srgb, var(--color-motif-deep) 19%, transparent)',
+                      boxShadow: "0 2px 12px rgba(91,102,85,0.06)",
+                      ...(justEntered
+                        ? {
+                            animationDelay: `${index * 120}ms`,
+                            backfaceVisibility: "hidden",
+                          }
+                        : {}),
+                    }}
+                  >
                   <div className="flex items-start gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-2.5 md:mb-3">
-                    {/* Avatar - Mobile Optimized */}
                     <div className="relative flex-shrink-0">
-                      <div className="w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-[#C44569] flex items-center justify-center shadow-md ring-2 ring-white/50">
+                      <div
+                        className="w-9 h-9 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center shadow-md ring-2 ring-white/60"
+                        style={{ backgroundColor: BOOK_ACCENT }}
+                      >
                         <span className="text-white font-semibold text-xs sm:text-base md:text-lg">
                           {getInitials(guest.name)}
                         </span>
                       </div>
-                      {/* VIP Badge - Mobile Optimized */}
                       {guest.isVip && (
                         <div className="absolute -top-0.5 -right-0.5">
-                          <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 bg-gradient-to-r from-[#C44569] to-[#F5E1C0] rounded-full shadow-md">
+                          <div className="flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full shadow-md border-2 border-white">
                             <Crown className="h-2 w-2 sm:h-2.5 sm:w-2.5 md:h-3.5 md:w-3.5 text-white fill-current" />
                           </div>
                         </div>
                       )}
                     </div>
 
-                    {/* Guest Info - Mobile Optimized */}
                     <div className="flex-1 min-w-0">
                       <div className="mb-1 sm:mb-1.5">
-                        <h3 className={`${bequta.className} text-xs sm:text-base md:text-lg font-semibold sm:font-bold text-[#C44569] leading-tight mb-0.5`}>
+                        <h3 className={`${cinzel.className} text-xs sm:text-base md:text-lg font-semibold sm:font-bold leading-tight mb-0.5`} style={{ color: BOOK_DARK }}>
                           {guest.name}
                         </h3>
                         {guest.role && (
-                          <p className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs text-[#C44569]/80 font-medium`}>
+                          <p className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-medium opacity-80`} style={{ color: BOOK_DARK }}>
                             {guest.role}
                           </p>
                         )}
                       </div>
-
-                      {/* Email - Mobile Optimized */}
+{/* 
                       {guest.email && (
-                        <div className="flex items-center gap-1 text-[9px] sm:text-[10px] md:text-xs text-[#C44569]/70 mb-1.5 sm:mb-2 md:mb-3">
-                          <Mail className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#C44569]/60 flex-shrink-0" />
+                        <div className="flex items-center gap-1 text-[9px] sm:text-[10px] md:text-xs mb-1.5 sm:mb-2 md:mb-3 opacity-75" style={{ color: BOOK_DARKER }}>
+                          <Mail className="h-2.5 w-2.5 sm:h-3 sm:w-3 flex-shrink-0" style={{ color: BOOK_DARK }} />
                           <span className="truncate">{guest.email}</span>
                         </div>
-                      )}
+                      )} */}
 
-                      {/* Info Badges - Mobile Optimized */}
                       <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 md:gap-2 mb-1.5 sm:mb-2 md:mb-3">
-                        {/* Guest count badge */}
-                        <div className="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 bg-[#C44569]/5 border border-[#C44569]/30 rounded sm:rounded-md md:rounded-lg">
-                          <Users className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 text-[#C44569]" />
-                          <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-semibold text-[#C44569]`}>
-                            {guest.allowedGuests} {guest.allowedGuests === 1 ? 'Guest' : 'Guests'}
+                        <div
+                          className="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 rounded-lg border"
+                          style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-deep) 7%, transparent)', borderColor: 'color-mix(in srgb, var(--color-motif-deep) 21%, transparent)' }}
+                        >
+                          <Users className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 flex-shrink-0" style={{ color: BOOK_ACCENT }} />
+                          <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-semibold`} style={{ color: BOOK_DARK }}>
+                            {guest.allowedGuests} {guest.allowedGuests === 1 ? "Guest" : "Guests"}
                           </span>
                         </div>
-
-                        {/* Table badge */}
-                        <div className="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 bg-[#C44569]/5 border border-[#C44569]/40 sm:border-2 rounded sm:rounded-md md:rounded-lg">
-                          <MapPin className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 text-[#C44569]" />
-                          <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-semibold sm:font-bold text-[#C44569]`}>
+                        <div
+                          className="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 rounded-lg border"
+                          style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-deep) 7%, transparent)', borderColor: 'color-mix(in srgb, var(--color-motif-deep) 25%, transparent)' }}
+                        >
+                          <MapPin className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 flex-shrink-0" style={{ color: BOOK_ACCENT }} />
+                          <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-semibold`} style={{ color: BOOK_DARK }}>
                             {guest.tableNumber && guest.tableNumber.trim() !== "" ? (
                               <>Table {guest.tableNumber}</>
                             ) : (
-                              <span className="text-[#C44569]/60 font-medium">Not Assigned</span>
+                              <span className="opacity-65">Not Assigned</span>
                             )}
                           </span>
                         </div>
                       </div>
 
-                      {/* Message - Mobile Optimized */}
-                      {guest.message && guest.message.trim() !== "" && (
-                        <div className="relative mb-1.5 sm:mb-2.5 md:mb-3 p-2 sm:p-3 md:p-5 bg-white rounded sm:rounded-lg md:rounded-2xl border border-[#C44569]/30 shadow-sm overflow-hidden">
-                          {/* Decorative corner elements - smaller on mobile */}
-                          <div className="absolute top-0 left-0 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 opacity-[0.08]">
-                            <svg viewBox="0 0 100 100" className="text-[#C44569]" fill="currentColor">
-                              <path d="M0,0 L100,0 L0,100 Z" />
-                            </svg>
+                      {/* {guest.message && guest.message.trim() !== "" && (
+                        <div
+                          className="relative mb-1.5 sm:mb-2.5 md:mb-3 p-2 sm:p-3 md:p-5 rounded-lg md:rounded-xl border overflow-hidden"
+                          style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-cream) 90%, white)', borderColor: 'color-mix(in srgb, var(--color-motif-deep) 15%, transparent)' }}
+                        >
+                          <div className="absolute top-0 left-0 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 opacity-[0.06]" style={{ color: BOOK_ACCENT }}>
+                            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M0,0 L100,0 L0,100 Z" /></svg>
                           </div>
-                          <div className="absolute bottom-0 right-0 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 opacity-[0.08]">
-                            <svg viewBox="0 0 100 100" className="text-[#C44569]" fill="currentColor">
-                              <path d="M100,100 L0,100 L100,0 Z" />
-                            </svg>
+                          <div className="absolute bottom-0 right-0 w-8 h-8 sm:w-12 sm:h-12 md:w-16 md:h-16 opacity-[0.06]" style={{ color: BOOK_ACCENT }}>
+                            <svg viewBox="0 0 100 100" fill="currentColor"><path d="M100,100 L0,100 L100,0 Z" /></svg>
                           </div>
-                          
-                          {/* Opening quote - smaller on mobile */}
-                          <div className="absolute top-1 left-1 sm:top-1.5 sm:left-1.5 md:top-2 md:left-2 text-[#C44569]/25">
-                            <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
-                            </svg>
+                          <div className="absolute top-1 left-1 sm:top-1.5 sm:left-1.5 md:top-2 md:left-2 opacity-20" style={{ color: BOOK_ACCENT }}>
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" /></svg>
                           </div>
-                          
-                          {/* Closing quote - smaller on mobile */}
-                          <div className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 md:bottom-2 md:right-2 text-[#C44569]/25">
-                            <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M18 7h-3l-2 4v6h6v-6h-3zm-8 0H7l-2 4v6h6v-6h-3z" />
-                            </svg>
+                          <div className="absolute bottom-1 right-1 sm:bottom-1.5 sm:right-1.5 md:bottom-2 md:right-2 opacity-20" style={{ color: BOOK_ACCENT }}>
+                            <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 7h-3l-2 4v6h6v-6h-3zm-8 0H7l-2 4v6h6v-6h-3z" /></svg>
                           </div>
-
-                          {/* Message content */}
                           <div className="relative px-0.5 sm:px-1">
-                            <p className={`${cormorant.className} text-[10px] sm:text-xs md:text-base text-[#C44569] leading-tight sm:leading-relaxed italic font-medium`}>
+                            <p className={`${cormorant.className} text-[10px] sm:text-xs md:text-base leading-tight sm:leading-relaxed italic font-medium`} style={{ color: BOOK_DARKER }}>
                               {guest.message}
                             </p>
                           </div>
-
-                          {/* Elegant border accent - smaller on mobile */}
-                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 sm:w-0.5 md:w-1 h-8 sm:h-12 md:h-16 bg-gradient-to-b from-transparent via-[#C44569] to-transparent rounded-r-full" />
+                          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 sm:w-1 h-8 sm:h-12 md:h-16 rounded-r-full opacity-40" style={{ background: 'linear-gradient(to bottom, transparent, var(--color-motif-deep), transparent)' }} />
                         </div>
-                      )}
+                      )} */}
 
-                      {/* Companions - Mobile Optimized */}
                       {guest.companions && guest.companions.length > 0 && (
-                        <div className="pt-1.5 sm:pt-2 md:pt-2.5 border-t border-[#C44569]/20">
+                        <div className="pt-1.5 sm:pt-2 md:pt-2.5 border-t" style={{ borderColor: 'color-mix(in srgb, var(--color-motif-deep) 15%, transparent)' }}>
                           <div className="flex items-center gap-1 mb-1 sm:mb-1.5">
-                            <Users className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5 text-[#C44569]" />
-                            <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-semibold text-[#C44569]`}>Companions</span>
+                            <Users className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-3.5 md:w-3.5" style={{ color: BOOK_ACCENT }} />
+                            <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-semibold`} style={{ color: BOOK_DARK }}>Companions</span>
                           </div>
                           <div className="flex flex-wrap gap-1 sm:gap-1.5">
                             {guest.companions.map((companion, idx) => (
-                              <div key={idx} className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 bg-white border border-[#C44569]/30 rounded sm:rounded-md md:rounded-lg hover:border-[#C44569]/50 transition-colors">
-                                <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-medium text-[#C44569] whitespace-nowrap`}>{companion.name}</span>
+                              <div
+                                key={idx}
+                                className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 md:px-2.5 py-0.5 sm:py-1 rounded-lg border transition-colors hover:border-opacity-60"
+                                style={{ backgroundColor: 'color-mix(in srgb, var(--color-motif-cream) 80%, white)', borderColor: 'color-mix(in srgb, var(--color-motif-deep) 19%, transparent)' }}
+                              >
+                                <span className={`${cormorant.className} text-[9px] sm:text-[10px] md:text-xs font-medium whitespace-nowrap`} style={{ color: BOOK_DARK }}>{companion.name}</span>
                                 {companion.relationship && companion.relationship.trim() !== "" && (
-                                  <span className={`${cormorant.className} text-[8px] sm:text-[9px] md:text-[10px] text-[#C44569] bg-[#C44569]/10 px-1.5 sm:px-2 py-0.5 rounded-full font-medium border border-[#C44569]/20 whitespace-nowrap`}>
+                                  <span className={`${cormorant.className} text-[8px] sm:text-[9px] md:text-[10px] font-medium px-1.5 sm:px-2 py-0.5 rounded-full border whitespace-nowrap`} style={{ color: BOOK_DARK, backgroundColor: 'color-mix(in srgb, var(--color-motif-deep) 8%, transparent)', borderColor: 'color-mix(in srgb, var(--color-motif-deep) 15%, transparent)' }}>
                                     {companion.relationship}
                                   </span>
                                 )}
@@ -417,10 +457,9 @@ export function BookOfGuests() {
                         </div>
                       )}
 
-                      {/* Footer - Mobile Optimized */}
-                      <div className="flex items-center gap-1 pt-1.5 sm:pt-2 md:pt-2.5 mt-1.5 sm:mt-2 md:mt-2.5 border-t border-[#C44569]/20">
-                        <Calendar className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#C44569]/60" />
-                        <span className={`${cormorant.className} text-[8px] sm:text-[9px] md:text-[10px] text-[#C44569]/70`}>
+                      <div className="flex items-center gap-1 pt-1.5 sm:pt-2 md:pt-2.5 mt-1.5 sm:mt-2 md:mt-2.5 border-t" style={{ borderColor: 'color-mix(in srgb, var(--color-motif-deep) 13%, transparent)' }}>
+                        <Calendar className="h-2.5 w-2.5 sm:h-3 sm:w-3 opacity-70" style={{ color: BOOK_ACCENT }} />
+                        <span className={`${cormorant.className} text-[8px] sm:text-[9px] md:text-[10px] opacity-80`} style={{ color: BOOK_DARKER }}>
                           Confirmed {formatDate(guest.updatedAt)}
                         </span>
                       </div>
@@ -428,19 +467,39 @@ export function BookOfGuests() {
                   </div>
                 </div>
               ))}
-            </div>
-            
-            {/* View More Button */}
-            {!showAllGuests && confirmedGuests.length > 5 && (
-              <div className="flex justify-center mt-4 sm:mt-6 md:mt-8">
-                <button
-                  onClick={() => setShowAllGuests(true)}
-                  className={`${cormorant.className} px-6 sm:px-8 md:px-10 py-2.5 sm:py-3 md:py-4 bg-[#C44569] backdrop-blur-md border-2 border-[#C44569] rounded-lg sm:rounded-xl text-white font-semibold text-sm sm:text-base md:text-lg hover:bg-[#a63a59] hover:border-[#a63a59] transition-all duration-300 shadow-md hover:shadow-lg`}
-                >
-                  View More ({confirmedGuests.length - 5} more)
-                </button>
               </div>
-            )}
+
+              {/* Carousel indicators — warm brown */}
+              {confirmedGuests.length > CARDS_PER_VIEW && (
+                <div className="flex items-center justify-center gap-2 mt-4 sm:mt-6">
+                  {Array.from({ length: Math.ceil(confirmedGuests.length / CARDS_PER_VIEW) }).map((_, idx) => {
+                    const pageIndex = Math.floor(currentIndex / CARDS_PER_VIEW)
+                    const isActive = pageIndex === idx
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setIsTransitioning(true)
+                          setTimeout(() => {
+                            setCurrentIndex(idx * CARDS_PER_VIEW)
+                            setIsTransitioning(false)
+                            setJustEntered(true)
+                            setTimeout(() => setJustEntered(false), 1100)
+                          }, 600)
+                        }}
+                        className="h-2 rounded-full transition-all duration-300 hover:opacity-90"
+                        style={{
+                          width: isActive ? "1.75rem" : "0.5rem",
+                          backgroundColor: isActive ? BOOK_ACCENT : 'color-mix(in srgb, var(--color-motif-deep) 31%, transparent)',
+                        }}
+                        aria-label={`Go to page ${idx + 1}`}
+                      />
+                    )
+                  })}
+                </div>
+              )}
+            </div>
           </div>
         )}
 
