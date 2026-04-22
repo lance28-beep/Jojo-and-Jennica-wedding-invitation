@@ -539,10 +539,10 @@ export function Details() {
               <div className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-7">
                 <div className="border-t border-motif-silver/60 pt-4 sm:pt-5">
                   <p className="text-center text-xs sm:text-sm font-[family-name:var(--font-crimson)] font-semibold text-motif-deep leading-relaxed ">
-                  Ninang - Champagne Satin Gown
+                  Long Gown - Ninang
                   </p>
                   <p className="text-center text-xs sm:text-sm font-[family-name:var(--font-crimson)] font-semibold text-motif-deep leading-relaxed mb-3 sm:mb-4">
-                  Ninong- Barong Tagalog with Black Slacks
+                  Barong & Black Pants - Ninong
                   </p>
                 </div>
               </div>
@@ -592,7 +592,7 @@ export function Details() {
               <div className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-7">
                 <div className="border-t border-motif-silver/60 pt-4 sm:pt-5">
                   <p className="text-center text-sm sm:text-base font-[family-name:var(--font-crimson)] font-semibold text-motif-deep leading-relaxed mb-3 sm:mb-4">
-                    We would like to see you in your best confortable attire that suits our color motif.
+                    We would like to see you in your best confortable attire that suits our color motif. (Semi-Formal/Smart Casual)
                   </p>
 
                 </div>
@@ -694,6 +694,16 @@ export function Details() {
                 </h4>
                 <p className={`${cormorant.className} text-sm sm:text-base md:text-lg text-motif-deep/80 leading-relaxed`}>
                 To ensure everything runs smoothly, please arrive at least 30 minutes before the ceremony starts. The program will begin at {siteConfig.ceremony.time}, so we kindly ask everyone to arrive by {siteConfig.ceremony.guestsTime} minutes. This will give you time to find your seat, take in the beautiful setup, and be fully present for our special moment
+                </p>
+              </div>
+
+              {/* Full program — stay through the end */}
+              <div className="bg-motif-cream/60 rounded-lg p-4 sm:p-5 md:p-6 border border-motif-deep/10 shadow-sm">
+                <h4 className={`${cinzel.className} text-base sm:text-lg md:text-xl font-semibold text-motif-deep mb-2 sm:mb-3`}>
+                Stay for the full program
+                </h4>
+                <p className={`${cormorant.className} text-sm sm:text-base md:text-lg text-motif-deep/80 leading-relaxed`}>
+                We&apos;re shaping the day as one full story—from the ceremony to the last toast and goodnight. The closing moments are especially meaningful to us, and we&apos;d be honored to have you there for all of it. If your schedule allows, please plan to stay with us through the end of the program; it truly completes the celebration for us to share the whole day with the people we love.
                 </p>
               </div>
             </div>

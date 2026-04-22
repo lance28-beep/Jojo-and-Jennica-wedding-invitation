@@ -17,7 +17,7 @@ export const siteConfig = {
     googleShare: "",},
   wedding: {
     date: "MAY 23, 2026",
-    time: "10:00 AM",
+    time: "9:30 AM",
     venue: "Mary Mediatrix of All Grace Parish",
     tagline: "are getting married!",
     theme: "Modern Filipiniana",
@@ -25,7 +25,7 @@ export const siteConfig = {
   },
   details: {
     rsvp: {
-      deadline: "April 23, 2026",
+      deadline: "May 9, 2026",
       contact: "Monique Ogalesco",
       phone: "647-622-5353",
     },
@@ -94,7 +94,7 @@ Now, as they prepare to say yes before God and the people they love most, Jennic
   },
   snapShare: {
     googleDriveLink: "https://drive.google.com/drive/folders/1lk45T1tGmm5_Oa48ABV_Cgrnpp1T2kTk?usp=sharing",
-    hashtag: "#JojoAndJennicaSayIDo",
+    hashtag: ["#JENuineJOurneyToIDo","#JOJOsJENuineLove"],
     instructions: "Please scan this QR Code, create a folder with your name and upload the photos and videos you have taken during our wedding reception. We are delighted to see your snaps too!",
   },
 }

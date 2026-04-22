@@ -39,9 +39,9 @@ const ROLE_CATEGORY_ORDER = [
   "Matron of Honor",
   "Best Man",
   "Maid of Honor",
-  "Candle Sponsors",
-  "Veil Sponsors",
-  "Cord Sponsors",
+  "Candle",
+  "Veil",
+  "Cord",
   "Groomsmen",
   "Bridesmaids",
   "Little Groom",
@@ -589,7 +589,7 @@ export function Entourage() {
                             <div className="w-full max-w-md h-px bg-gradient-to-r from-transparent via-motif-silver/50 to-transparent"></div>
                           </div>
                         )}
-                        <TwoColumnLayout leftTitle="Best Man" rightTitle="Maid of Honor">
+                        <TwoColumnLayout leftTitle="Best Man" rightTitle="Matron of Honor">
                           {(() => {
                             const maxLen = Math.max(bestMan.length, maidOfHonor.length)
                             const rows = []
@@ -707,7 +707,7 @@ export function Entourage() {
                 }
 
                 // Special handling: Add "Secondary Sponsors" label above Candle Sponsors
-                if (category === "Candle Sponsors") {
+                if (category === "Candle") {
                   return (
                     <div key={category}>
                       {categoryIndex > 0 && (
@@ -721,7 +721,7 @@ export function Entourage() {
                       </div>
                       <TwoColumnLayout singleTitle={category} centerContent={true}>
                         {(() => {
-                          const PAIRED_SECTIONS = new Set(["Candle Sponsors", "Cord Sponsors", "Veil Sponsors"])
+                          const PAIRED_SECTIONS = new Set(["Candle", "Cord", "Veil"])
                           if (PAIRED_SECTIONS.has(category) && members.length === 2) {
                             const left = members[0]
                             const right = members[1]
@@ -794,7 +794,7 @@ export function Entourage() {
                           "Presider",
                         ])
                         // Special rule: paired sponsor roles with exactly 2 names should meet at center
-                        const PAIRED_SECTIONS = new Set(["Candle Sponsors", "Cord Sponsors", "Veil Sponsors"])
+                        const PAIRED_SECTIONS = new Set(["Candle", "Cord", "Veil"])
                         if (PAIRED_SECTIONS.has(category) && members.length === 2) {
                           const left = members[0]
                           const right = members[1]

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { motion } from "motion/react"
-import { Instagram, Facebook, Twitter, Share2, Copy, Download, Check } from "lucide-react"
+import { Instagram, Facebook, Twitter, Share2, Copy, Download, Check, Hash } from "lucide-react"
 import { Section } from "@/components/section"
 import { QRCodeCanvas } from "qrcode.react"
 import { siteConfig } from "@/content/site"
@@ -27,7 +27,10 @@ export function SnapShare() {
 
   const websiteUrl = typeof window !== "undefined" ? window.location.href : "https://example.com"
   const driveLink = "https://drive.google.com/drive/folders/1z42E4XdoDoxd1v2lJbFD4txEtkzgJRNH?usp=sharing"
-  const hashtags = [siteConfig.snapShare.hashtag]
+  const rawHashtags = siteConfig.snapShare.hashtag
+  const hashtags: string[] = Array.isArray(rawHashtags)
+    ? rawHashtags.map((h) => String(h).trim()).filter(Boolean)
+    : [String(rawHashtags ?? "").trim()].filter(Boolean)
   const allHashtagsText = hashtags.join(" ")
   const groomNickname = siteConfig.couple.groomNickname
   const brideNickname = siteConfig.couple.brideNickname
@@ -307,32 +310,48 @@ export function SnapShare() {
               <div className="space-y-2.5 sm:space-y-3 mb-3 sm:mb-4">
                 {hashtags.map((hashtag, index) => (
                   <motion.div
-                    key={index}
-                    className="bg-white/90 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-[#C44569]/40 shadow-sm hover:shadow-md transition-all duration-200"
-                    initial={{ opacity: 0, x: -20 }}
+                    key={`${index}-${hashtag}`}
+                    className="rounded-xl sm:rounded-2xl border border-[#C44569]/30 bg-gradient-to-br from-white via-[#FFF9F8] to-white p-px shadow-sm transition-shadow duration-200 hover:shadow-md"
+                    initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    whileHover={{ scale: 1.02 }}
+                    transition={{ delay: index * 0.08, type: "spring", stiffness: 380, damping: 28 }}
+                    whileHover={{ y: -1 }}
                   >
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
-                      <span className={`${cormorant.className} text-[#C44569] font-bold text-sm sm:text-base md:text-lg break-all flex-1 text-center sm:text-left`}>
-                        {hashtag}
-                      </span>
+                    <div className="flex items-center justify-between gap-2.5 sm:gap-4 rounded-[inherit] bg-white/85 px-2.5 py-2.5 sm:px-3.5 sm:py-3 backdrop-blur-[2px]">
+                      <div className="flex min-w-0 flex-1 items-center gap-2.5 sm:gap-3">
+                        <div
+                          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#C44569]/[0.12] text-[#C44569] ring-1 ring-inset ring-[#C44569]/20"
+                          aria-hidden
+                        >
+                          <Hash className="h-4 w-4 sm:h-[1.1rem] sm:w-[1.1rem] stroke-[2.5]" />
+                        </div>
+                        <p
+                          className={`${cormorant.className} min-w-0 text-left text-[#C44569] font-semibold text-sm leading-snug sm:text-base md:text-lg [word-break:break-word] selection:bg-[#C44569]/15`}
+                        >
+                          {hashtag}
+                        </p>
+                      </div>
                       <button
+                        type="button"
                         onClick={() => copyHashtag(hashtag, index)}
-                        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-[#C44569] text-white transition-all duration-200 shadow-md hover:shadow-lg hover:scale-105 whitespace-nowrap flex-shrink-0 ${
-                          copiedHashtagIndex === index ? "bg-green-600 from-green-600 to-green-500" : ""
-                        }`}
+                        aria-label={`Copy hashtag ${hashtag}`}
+                        className={`inline-flex shrink-0 items-center gap-1.5 sm:gap-2 rounded-lg px-2.5 py-1.5 text-white shadow-md transition-all duration-200 sm:px-3.5 sm:py-2 ${
+                          copiedHashtagIndex === index
+                            ? "bg-emerald-600 shadow-emerald-600/25 ring-2 ring-emerald-500/30"
+                            : "bg-[#C44569] hover:scale-[1.03] hover:bg-[#a63a59] hover:shadow-lg active:scale-[0.98]"
+                        } `}
                       >
                         {copiedHashtagIndex === index ? (
                           <>
-                            <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                            <span className={`${cormorant.className} text-xs sm:text-sm font-medium`}>Copied!</span>
+                            <Check className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
+                            <span className={`${cormorant.className} text-xs font-medium sm:text-sm`}>
+                              Copied
+                            </span>
                           </>
                         ) : (
                           <>
-                            <Copy className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                            <span className={`${cormorant.className} text-xs sm:text-sm font-medium`}>Copy</span>
+                            <Copy className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
+                            <span className={`${cormorant.className} text-xs font-medium sm:text-sm`}>Copy</span>
                           </>
                         )}
                       </button>
@@ -466,7 +485,7 @@ export function SnapShare() {
           <div className="bg-white rounded-xl sm:rounded-[22px] p-4 sm:p-6 md:p-7 shadow-[0_25px_80px_rgba(128,10,6,0.18)] border border-[#C44569]/30 max-w-3xl mx-auto backdrop-blur-xl">
             <p className={`${cormorant.className} text-[#C44569] text-sm sm:text-base md:text-lg leading-relaxed mb-3 sm:mb-4 px-2`}>
               Thank you for helping make {groomNickname} & {brideNickname}'s wedding celebration memorable. Your photos and messages create beautiful memories
-              that will last a lifetime—keep sharing the joy throughout the evening.
+              that will last a lifetime—keep sharing the joy throughout the celebration.
             </p>
             <div className={`${cormorant.className} flex items-center justify-center gap-2 text-[#C44569] text-xs sm:text-sm tracking-[0.25em] sm:tracking-[0.32em] uppercase`}>
               <span>See you in the celebration</span>
