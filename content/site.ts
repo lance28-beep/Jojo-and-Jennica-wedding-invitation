@@ -33,7 +33,7 @@ export const siteConfig = {
   ceremony: {
     location: "Mary Mediatrix of All Grace Parish",
     address: "Antipolo del Norte, Lipa City, Batangas",
-    venue: "Mary Mediatrix of All Grace Parish",
+    venue: "Antipolo del Norte, Lipa City, Batangas",
     date: "May 23, 2026",
     day: "Saturday",
     time: "10:00 AM",
@@ -44,7 +44,7 @@ export const siteConfig = {
   reception: {
     location: "La Vida Resort and Events Center",
     address: "Lodlod, Lipa City, Batangas",
-    venue: "La Vida Resort and Events Center",
+    venue: "Lodlod, Lipa City, Batangas",
     date: "May 23, 2026",
     time: "12:00 PM",
     image: ["/Details/La Vida Resort and Events Center 2.png","/Details/La Vida Resort and Events Center.png"],

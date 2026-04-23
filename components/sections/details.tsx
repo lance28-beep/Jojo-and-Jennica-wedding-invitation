@@ -233,7 +233,7 @@ export function Details() {
                   {siteConfig.ceremony.location}
                 </h3>
                 <p className={`${cinzel.className} text-xs sm:text-sm md:text-base text-white/95 drop-shadow-md tracking-wide`}>
-                  {siteConfig.ceremony.venue}
+                  {siteConfig.ceremony.address}
                 </p>
               </div>
             </div>
@@ -274,7 +274,7 @@ export function Details() {
 
                 {/* Time */}
                 <p className={`${cinzel.className} text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-motif-deep tracking-wide`}>
-                  {siteConfig.ceremony.time}
+                  9:30 AM
                 </p>
               </div>
 
@@ -287,15 +287,15 @@ export function Details() {
                       Location
                     </p>
                     <p className={`${cinzel.className} text-xs sm:text-sm md:text-base lg:text-lg font-[family-name:var(--font-crimson)] text-motif-deep leading-relaxed`}>
-                      {ceremonyVenueName}
+                      {siteConfig.ceremony.location}
                     </p>
                     {ceremonyVenueDetail && (
                       <p className={`${cinzel.className} text-[10px] sm:text-xs md:text-sm font-[family-name:var(--font-crimson)] text-motif-medium/70 leading-relaxed mt-1`}>
-                        {ceremonyVenueDetail}
+                        {siteConfig.ceremony.address}
                       </p>
                     )}
                     <p className={`${cinzel.className} text-[10px] sm:text-xs md:text-sm font-[family-name:var(--font-crimson)] text-motif-deep/70 leading-relaxed`}>
-                      {ceremonyAddress}
+                      {siteConfig.ceremony.address}
                     </p>
                   </div>
                   {/* QR Code for Ceremony - Right side */}
@@ -376,7 +376,7 @@ export function Details() {
                   {siteConfig.reception.location}
                 </h3>
                 <p className={`${cinzel.className} text-xs sm:text-sm md:text-base font-[family-name:var(--font-crimson)] text-white/95 drop-shadow-md tracking-wide`}>
-                  {siteConfig.reception.venue}
+                  {siteConfig.reception.address}
                 </p>
               </div>
             </div>
@@ -409,15 +409,15 @@ export function Details() {
                       Location
                     </p>
                     <p className={`${cinzel.className} text-xs sm:text-sm md:text-base lg:text-lg font-[family-name:var(--font-crimson)] text-motif-deep leading-relaxed`}>
-                      {receptionVenueName}
+                      {siteConfig.reception.location}
                     </p>
                     {receptionVenueDetail && (
                     <p className={`${cinzel.className} text-[10px] sm:text-xs md:text-sm font-[family-name:var(--font-crimson)] text-motif-deep/70 leading-relaxed mt-1`}>
-                        {receptionVenueDetail}
+                        {siteConfig.reception.address}
                       </p>
                     )}
                     <p className={`${cinzel.className} text-[10px] sm:text-xs md:text-sm font-[family-name:var(--font-crimson)] text-motif-deep/70 leading-relaxed`}>
-                      {receptionAddress}
+                      {siteConfig.reception.address}
                     </p>
                   </div>
               
@@ -592,7 +592,7 @@ export function Details() {
               <div className="px-4 sm:px-6 md:px-8 pb-5 sm:pb-7">
                 <div className="border-t border-motif-silver/60 pt-4 sm:pt-5">
                   <p className="text-center text-sm sm:text-base font-[family-name:var(--font-crimson)] font-semibold text-motif-deep leading-relaxed mb-3 sm:mb-4">
-                    We would like to see you in your best confortable attire that suits our color motif. (Semi-Formal/Smart Casual)
+                    We would like to see you in your best attire that suits our color motif. (Semi-Formal/Smart Casual)
                   </p>
 
                 </div>

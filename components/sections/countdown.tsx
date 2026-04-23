@@ -308,7 +308,8 @@ export function Countdown() {
                       <span
                         className="text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-motif-cream"
                       >
-                        {ceremonyDayShort}
+                        
+                      Saturday
                       </span>
                       <span className="h-[0.5px] w-6 sm:w-8 md:w-10 bg-motif-cream/45" />
                     </div>
@@ -328,7 +329,7 @@ export function Countdown() {
                       <span
                         className="text-[0.6rem] sm:text-[0.7rem] md:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] text-motif-cream"
                       >
-                        {ceremonyTimeDisplay.split(",")[0]}
+                        9:30 AM
                       </span>
                       <span className="h-[0.5px] flex-1 bg-motif-cream/45" />
                     </div>

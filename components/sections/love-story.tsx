@@ -24,7 +24,7 @@ const storyEvents = [
     place: "Perennial Fund Services' Office",
     memories: "This was the place where their story first stirred — where ordinary days became extraordinary, and friendship gave way to love. Now, they return not as workmates, but as soulmates, ready to mark a day that will echo through every tomorrow.",
     year: "2017",
-    month: "JJuly",
+    month: "July",
     img: "/loveStory/add/1. Perennial.jpg"
   },
   {
