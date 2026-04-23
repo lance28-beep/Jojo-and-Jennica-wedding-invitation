@@ -776,7 +776,7 @@ export function GuestList() {
 
 <input
   type="text"
-  name="songRequest"
+  name="Message"
   value={formData.Message}
   onChange={handleFormChange}
   placeholder="Share a song you'd love to hear on our special day 🎶"
