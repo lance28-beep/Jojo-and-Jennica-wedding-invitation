@@ -158,7 +158,7 @@ export function Navbar() {
                 items={menuItems}
                 socialItems={[]}
                 displaySocials={false}
-                displayItemNumbering={true}
+                displayItemNumbering={false}
                 menuButtonColor="#C44569"
                 openMenuButtonColor="#C44569"
                 changeMenuColorOnOpen={true}

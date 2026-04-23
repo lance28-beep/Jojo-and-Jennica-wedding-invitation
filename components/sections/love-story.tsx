@@ -35,18 +35,18 @@ const storyEvents = [
     img: "/loveStory/add/2. Purple Beetle.jpg"
   },
   {
-    place: "Sagada",
-    memories: "Couples first adventure together, the chill clung sweetly to their skin as the sun rose in golden hush — a quiet symphony of warmth and wonder, just like them.",
-    year: "2018",
-    month: "October",
-    img: "/loveStory/add/3. Sagada.jpg"
-  },
-  {
     place: "Monte Maria",
     memories: "Year after year, he wished to celebrate his birthday in this sacred space, where gratitude met devotion. And afterward, at The Only Place - Restaurant, they’d dine together — a tradition of joy, warmth, and love served with every dish",
     year: "2018",
     month: "June",
     img: "/loveStory/add/4. Monte Maria.jpg"
+  },
+  {
+    place: "Sagada",
+    memories: "Couples first adventure together, the chill clung sweetly to their skin as the sun rose in golden hush — a quiet symphony of warmth and wonder, just like them.",
+    year: "2018",
+    month: "October",
+    img: "/loveStory/add/3. Sagada.jpg"
   },
   {
     place: "Bohol",
@@ -133,7 +133,7 @@ const storyEvents = [
     img: "/loveStory/16 South Korea.webp"
   },
   {
-    place: "Valentino Resort - Lipa Batangas",
+    place: "Valentino Resort & Spa",
     memories: "Amidst the rush of work and life’s responsibilities, they chose stillness. For their 3rd Anniversary, they escaped to a haven of warmth — where good food comforted the soul, gentle massages eased the weight of time, and love was celebrated in quiet, tender ways",
     year: "2025",
     month: "June",

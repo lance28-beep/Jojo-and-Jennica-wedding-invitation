@@ -519,6 +519,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   .sm-scope .staggered-menu-header { padding: 1rem; }
   .sm-scope .staggered-menu-panel { width: 100%; left: 0; right: 0; padding: 4.5em 1.5em 1.75em 1.5em; }
   .sm-scope .staggered-menu-wrapper[data-open] .sm-logo-img { filter: invert(100%); }
+  .sm-scope .sm-panel-list[data-numbering] .sm-panel-item::after { content: none; }
 }
       `}</style>
     </div>

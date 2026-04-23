@@ -693,7 +693,7 @@ export function Details() {
                 Arrival
                 </h4>
                 <p className={`${cormorant.className} text-sm sm:text-base md:text-lg text-motif-deep/80 leading-relaxed`}>
-                To ensure everything runs smoothly, please arrive at least 30 minutes before the ceremony starts. The program will begin at {siteConfig.ceremony.time}, so we kindly ask everyone to arrive by {siteConfig.ceremony.guestsTime} minutes. This will give you time to find your seat, take in the beautiful setup, and be fully present for our special moment
+                To ensure everything runs smoothly, please arrive at least 30 minutes before the ceremony starts. The program will begin at {siteConfig.ceremony.time}, so we kindly ask everyone to arrive by {siteConfig.ceremony.guestsTime}. This will give you time to find your seat, take in the beautiful setup, and be fully present for our special moment
                 </p>
               </div>
 
@@ -703,7 +703,7 @@ export function Details() {
                 Stay for the full program
                 </h4>
                 <p className={`${cormorant.className} text-sm sm:text-base md:text-lg text-motif-deep/80 leading-relaxed`}>
-                We&apos;re shaping the day as one full story—from the ceremony to the last toast and goodnight. The closing moments are especially meaningful to us, and we&apos;d be honored to have you there for all of it. If your schedule allows, please plan to stay with us through the end of the program; it truly completes the celebration for us to share the whole day with the people we love.
+                We&apos;re shaping the day as one full story—from the ceremony to the last toast. The closing moments are especially meaningful to us, and we&apos;d be honored to have you there for all of it. If your schedule allows, please plan to stay with us through the end of the program; it truly completes the celebration for us to share the whole day with the people we love.
                 </p>
               </div>
             </div>
